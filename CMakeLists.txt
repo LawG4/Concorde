@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
 project(Concorde_PROJECT VERSION 0.1.0 LANGUAGES CXX C)
 
+# Append custom cmake module finding directory
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake/Modules/")
+
 # Cache the command line option the user passed via -DPLATFORM=
 if(PLATFORM)
 	message("User defined the platfrom as: ${PLATFORM}")
