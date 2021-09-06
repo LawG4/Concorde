@@ -21,7 +21,7 @@ else()
 endif()
 
 if("${PLATFORM}" STREQUAL "PLATFORM_DESKTOP" OR "${PLATFORM}" STREQUAL "PLATFORM_WII")
-	set(CACHE_PLATFORM ${PLATFORM} CACHE STRING "Sets if to build for wii or desktop")
+	set(CACHE_PLATFORM ${PLATFORM} CACHE STRING "Sets if to build for wii or desktop" FORCE)
 else()
 	message(FATAL_ERROR "Undefined platform ${PLATFORM}, please use -DPLATFORM=<PLATFORM_DESKTOP/PLATFORM_WII>")
 endif()

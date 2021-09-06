@@ -1,4 +1,5 @@
 # Define which platform source the user is compiling for and then add the appropariate sources
+message("Cache Platform : ${CACHE_PLATFORM}")
 if("${CACHE_PLATFORM}" STREQUAL "PLATFORM_WII")
 	add_subdirectory(Wii)
 else()

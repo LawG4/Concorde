@@ -6,4 +6,8 @@ find_package(SDLCon)
 target_link_libraries(Concorde PUBLIC "${SDLCON_LIBS}")
 target_include_directories(Concorde PUBLIC "${SDLCON_INCLUDE}")
 
+# Add all the source files
+set(SOURCE 
+	DesktopConcorde.c)
 
+target_sources(Concorde PRIVATE ${SOURCE})
