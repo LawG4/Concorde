@@ -14,4 +14,4 @@ if(NOT EXISTS ${SDLCON_LIB_DIR})
 	message(FATAL_ERROR "Check config. SDL2 include directory not found : ${SDLCON_LIB_DIR}")
 endif()
 
-set(SDLCON_LIBS "${SDLCON_LIB_DIR}/SDL2.lib ${SDLCON_LIB_DIR}/SDL2main.lib")
+set(SDLCON_LIBS "${SDLCON_LIB_DIR}/SDL2.lib" "${SDLCON_LIB_DIR}/SDL2main.lib")
