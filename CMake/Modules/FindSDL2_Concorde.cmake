@@ -11,7 +11,9 @@ if(NOT EXISTS ${SDLCON_INCLUDE})
 	message(FATAL_ERROR "Check config. SDL2 include directory not found : ${SDLCON_INCLUDE}")
 endif()
 if(NOT EXISTS ${SDLCON_LIB_DIR})
-	message(FATAL_ERROR "Check config. SDL2 include directory not found : ${SDLCON_LIB_DIR}")
+	message(FATAL_ERROR "Check config. SDL2 include Lib not found : ${SDLCON_LIB_DIR}")
 endif()
 
-set(SDLCON_LIBS "${SDLCON_LIB_DIR}/SDL2.lib" "${SDLCON_LIB_DIR}/SDL2main.lib")
+# Pass variables that a normal find SDL2 file would back to the calling file
+set(SDL2_LIBS "${SDLCON_LIB_DIR}/SDL2.lib" "${SDLCON_LIB_DIR}/SDL2main.lib")
+set(SDL2_INCLUDE_DIRS "${SDLCON_INCLUDE}")

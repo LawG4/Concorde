@@ -11,9 +11,14 @@ set(HEADERS
 
 target_sources(Concorde PRIVATE ${SOURCE} ${HEADERS})
 
-# Find SDL2 using the user supplied config in project root
-find_package(SDLCon)
-target_link_libraries(Concorde PUBLIC "${SDLCON_LIBS}")
-target_include_directories(Concorde PUBLIC "${SDLCON_INCLUDE}")
 
 
+# Find SDL2, fallback to user config in root if SDL2.cmake is missing
+find_package(SDL2)
+if(NOT ${SDL2_INCLUDE_DIRS})
+	message("Using Config.cmake in Concorde root dir to find SDL2")
+	find_package(SDL2_Concorde)
+endif()
+
+target_link_libraries(Concorde PUBLIC "${SDL2_LIBS}")
+target_include_directories(Concorde PUBLIC "${SDL2_INCLUDE_DIRS}")
