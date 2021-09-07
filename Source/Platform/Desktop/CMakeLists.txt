@@ -12,6 +12,10 @@ set(HEADERS
 target_sources(Concorde PRIVATE ${SOURCE} ${HEADERS})
 
 
+# Find OpenGL
+find_package(OpenGL REQUIRED QUIET)
+target_link_libraries(Concorde PUBLIC ${OPENGL_LIBRARIES})
+target_include_directories(Concorde PUBLIC ${OPENGL_INCLUDE_DIRS})
 
 # Find SDL2, fallback to user config in root if SDL2.cmake is missing
 find_package(SDL2 QUIET)
@@ -22,3 +26,12 @@ endif()
 
 target_link_libraries(Concorde PUBLIC "${SDL2_LIBS}")
 target_include_directories(Concorde PUBLIC "${SDL2_INCLUDE_DIRS}")
+
+# Find GLEW 
+find_package(GLEW QUIET)
+if(NOT ${GLEW_INCLUDE_DIRS})
+	message("GLEW : Using Config.cmake in Concorde root dir to find GLEW")
+	find_package(GLEW_Concorde)
+endif()
+target_link_libraries(Concorde PUBLIC ${GLEW_LIBRARIES})
+target_include_directories(Concorde PUBLIC ${GLEW_INCLUDE_DIRS})
