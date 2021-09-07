@@ -14,9 +14,9 @@ target_sources(Concorde PRIVATE ${SOURCE} ${HEADERS})
 
 
 # Find SDL2, fallback to user config in root if SDL2.cmake is missing
-find_package(SDL2)
-if(NOT ${SDL2_INCLUDE_DIRS})
-	message("Using Config.cmake in Concorde root dir to find SDL2")
+find_package(SDL2 QUIET)
+if(NOT ${SDL2_FOUND})
+	message("SDL2 : Using Config.cmake in Concorde root dir to find SDL2")
 	find_package(SDL2_Concorde)
 endif()
 

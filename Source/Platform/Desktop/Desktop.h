@@ -4,6 +4,7 @@
 #ifndef CONCORDE_DESKTOP_HEADER
 #define CONCORDE_DESKTOP_HEADER
 
+#include <GL/glew.h>
 #include <SDL.h>
 
 /**
