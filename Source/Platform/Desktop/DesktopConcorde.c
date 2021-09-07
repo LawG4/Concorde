@@ -1,18 +1,27 @@
 #include "Concorde.h"
-#include <SDL.h>
+#include "Desktop.h"
 
-void initConcorde()
-{ /*We know we are currently on desktop*/
-    SDL_Window *window;
-    SDL_Surface *surface;
+SDL_Window *window;
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        return -1;
-    }
+uint8_t init_Concorde(const concorde_init_info *p_init_info)
+{
+    /*Ensure that the pointer is valid*/
+    if (!p_init_info)
+        return CONCORDE_VIDEO_INIT_FAILURE;
+    concorde_init_info info = *p_init_info;
 
-    window = SDL_CreateWindow("Hello!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 480, SDL_WINDOW_SHOWN);
+    /*Init SDL*/
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+        return CONCORDE_VIDEO_INIT_FAILURE;
 
-    SDL_Delay(200);
+    /*Create and launch the window*/
+    window = SDL_CreateWindow(info.app_name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, info.fb_width,
+                              info.fb_height, SDL_WINDOW_SHOWN);
+    if (!window)
+        return CONCORDE_VIDEO_INIT_FAILURE;
+
+    SDL_Delay(600);
     SDL_Quit();
+
+    return CONCORDE_SUCCESS;
 }
