@@ -3,7 +3,7 @@
 
 SDL_Window *window;
 
-uint8_t init_Concorde(const concorde_init_info *p_init_info)
+uint8_t concorde_init(const concorde_init_info *p_init_info)
 {
     /*Ensure that the pointer is valid*/
     if (!p_init_info)

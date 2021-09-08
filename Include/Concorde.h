@@ -38,6 +38,6 @@ extern concorde_init_info default_init_info;
  * @param p_init_info Pointer to the constructor setting the details
  * @return A failure code. 0 for a success
  */
-uint8_t init_Concorde(const concorde_init_info *p_init_info);
+uint8_t concorde_init(const concorde_init_info *p_init_info);
 
 #endif
