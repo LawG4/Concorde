@@ -18,6 +18,7 @@
  * @param app_name The name of the application
  * @param fb_width The width of the window, ignored on Wii
  * @param fb_height The height of the window, ignored on Wii
+ * @param fb_clear_color The clear color for the frame 8 bits for each channel RGBA
  * @param enable_msaa Should the implementation use anti aliasina
  */
 typedef struct concorde_init_info
@@ -25,6 +26,7 @@ typedef struct concorde_init_info
     char *app_name;
     uint32_t fb_width;
     uint32_t fb_height;
+    uint32_t fb_clear_color;
     bool enable_msaa;
 } concorde_init_info;
 
@@ -40,4 +42,5 @@ extern concorde_init_info default_init_info;
  */
 uint8_t concorde_init(const concorde_init_info *p_init_info);
 
+uint32_t concorde_pack_colors(uint8_t R, uint32_t G, uint32_t B, uint32_t A);
 #endif
