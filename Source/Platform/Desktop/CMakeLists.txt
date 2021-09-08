@@ -28,6 +28,7 @@ target_link_libraries(Concorde PUBLIC "${SDL2_LIBS}")
 target_include_directories(Concorde PUBLIC "${SDL2_INCLUDE_DIRS}")
 
 # Find GLEW 
+set(GLEW_USE_STATIC_LIBS true)
 find_package(GLEW QUIET)
 if(NOT ${GLEW_INCLUDE_DIRS})
 	message("GLEW : Using Config.cmake in Concorde root dir to find GLEW")

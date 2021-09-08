@@ -23,7 +23,7 @@ endif()
 
 # Set the libs depending on operating system
 if(WIN32)
-	set(GLEW_LIBRARIES "${GLEW_LIB_DIR}/glew32.lib")
+	set(GLEW_LIBRARIES "${GLEW_LIB_DIR}/glew32s.lib")
 else()
 	set(GLEW_LIBRARIES "${GLEW_LIB_DIR}/libGLEW.so")
 endif()
