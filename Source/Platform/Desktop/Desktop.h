@@ -4,6 +4,8 @@
 #ifndef CONCORDE_DESKTOP_HEADER
 #define CONCORDE_DESKTOP_HEADER
 
+#include "ConcordeInternal.h"
+
 /**
  * Temporarily ignore some compiler warnings
  *   4099  : "No PDB linking object" (This is because GLEW is a release library)

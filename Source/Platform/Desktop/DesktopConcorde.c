@@ -95,10 +95,6 @@ uint8_t init_gl(const concorde_init_info *p_init_info)
         printf("GL Error detected : 0x%X4.H", err);
         return CONCORDE_VIDEO_INIT_FAILURE;
     }
-
-    SDL_Delay(600);
-    SDL_Quit();
-
     return CONCORDE_SUCCESS;
 }
 
@@ -123,4 +119,31 @@ uint8_t concorde_init(const concorde_init_info *p_init_info)
     }
 
     return CONCORDE_SUCCESS;
+}
+
+void concorde_scan_inputs(void)
+{
+    /*Get the SDL events that happened*/
+    SDL_Event event;
+
+    /*While there are buffered events to process*/
+    while (SDL_PollEvent(&event))
+    {
+        switch (event.type)
+        {
+        /*Some kind of window event*/
+        case SDL_WINDOWEVENT:
+            switch (event.window.event)
+            {
+            case SDL_WINDOWEVENT_CLOSE:
+                should_window_close = 1;
+                return; /*No need to process other events*/
+            default:
+                break;
+            }
+        /*Default case*/
+        default:
+            break;
+        }
+    }
 }

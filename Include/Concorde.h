@@ -42,5 +42,25 @@ extern concorde_init_info default_init_info;
  */
 uint8_t concorde_init(const concorde_init_info *p_init_info);
 
+/**
+ * Tells the user if the window has been set to close. For example, pressing x on the window. The user must scan inputs
+ * to update this value. The user still maintains control of when they want the program to close
+ * @return 0 if the window should close, 1 if concorde hasn't detected an exit command
+ */
+uint8_t concorde_should_close(void);
+
+/**
+* Scans the inputs and stores the results in a cross platform friendly manner for the user to retrieve later
+*/
+void concorde_scan_inputs(void);
+
+/**
+ * A simple helper function to help the user pack RGB into one int. 0-255
+ * @param R Red
+ * @param G Green
+ * @param B Blue
+ * @param A Alpha Channel
+ * @return RGBA packed into a 32bit int
+ */
 uint32_t concorde_pack_colors(uint8_t R, uint32_t G, uint32_t B, uint32_t A);
 #endif
