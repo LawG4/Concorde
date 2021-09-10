@@ -9,22 +9,13 @@ endif()
 # Append custom cmake module finding directory
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake/Modules/")
 
+# Detect the users platform selection
+include("${PROJECT_SOURCE_DIR}/CMake/Toolchains/Platforms.cmake")
+
 # Add the concorde include directories
 include_directories("${PROJECT_SOURCE_DIR}/Include")
 
-# Cache the command line option the user passed via -DPLATFORM=
-if(PLATFORM)
-	message("User defined the platfrom as: ${PLATFORM}")
-else()
-	message("You didn't pass a platform, assuming a desktop")
-	set(PLATFORM "PLATFORM_DESKTOP")
-endif()
 
-if("${PLATFORM}" STREQUAL "PLATFORM_DESKTOP" OR "${PLATFORM}" STREQUAL "PLATFORM_WII")
-	set(CACHE_PLATFORM ${PLATFORM} CACHE STRING "Sets if to build for wii or desktop" FORCE)
-else()
-	message(FATAL_ERROR "Undefined platform ${PLATFORM}, please use -DPLATFORM=<PLATFORM_DESKTOP/PLATFORM_WII>")
-endif()
 
 # Create a target to put all the sources into
 add_library(Concorde STATIC Source/Concore.c Include/Concorde.h)
