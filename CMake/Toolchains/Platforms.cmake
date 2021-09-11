@@ -10,8 +10,24 @@ else()
 	set(PLATFORM "PLATFORM_DESKTOP")
 endif()
 
-if("${PLATFORM}" STREQUAL "PLATFORM_DESKTOP" OR "${PLATFORM}" STREQUAL "PLATFORM_WII")
-	set(CACHE_PLATFORM ${PLATFORM} CACHE STRING "Sets if to build for wii or desktop" FORCE)
+# Set the platform string to lowercase so it's easier to compare
+string(TOLOWER "${PLATFORM}" PLATFORM)
+
+# Detect if the user wanted to deploy to the nintendo wii
+string(FIND ${PLATFORM} "wii" PLATFORM_WII_SUBSTRING)
+if(NOT ${PLATFORM_WII_SUBSTRING} EQUAL -1)
+	# Detected wii
+	message("Configuring build for Wii")
+	set(PLATFORM "PLATFORM_WII")
+
+	# Include the wii toolchain
 else()
-	message(FATAL_ERROR "Undefined platform ${PLATFORM}, please use -DPLATFORM=<PLATFORM_DESKTOP/PLATFORM_WII>")
+	# Not detected wii, assume desktop
+	message("Configuring build for Desktop")
+	set(PLATFORM "PLATFORM_DESKTOP")
+
+	# Include the desktop toolchain
 endif()
+
+# Cache the platform variable
+set(CACHE_PLATFORM "${PLATFORM}" CACHE STRING "Concorde declaration storing the chosen target platform from command line options" FORCE)
