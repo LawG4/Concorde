@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 set(EXAMPLE_NAME 01_HelloConcorde)
-project(${EXAMPLE_NAME})
+project(${EXAMPLE_NAME} LANGUAGES NONE)
 
 
 

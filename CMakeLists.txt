@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
-project(Concorde VERSION 0.1.0 LANGUAGES CXX C)
+project(Concorde VERSION 0.1.0 LANGUAGES NONE)
 
 # Avoids Concorde being added multiple times
 if(TARGET Concorde)
