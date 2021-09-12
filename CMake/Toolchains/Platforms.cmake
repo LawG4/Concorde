@@ -13,6 +13,7 @@ endif()
 # Set the platform string to lowercase so it's easier to compare
 string(TOLOWER "${PLATFORM}" PLATFORM)
 
+
 # Detect if the user wanted to deploy to the nintendo wii
 string(FIND ${PLATFORM} "wii" PLATFORM_WII_SUBSTRING)
 if(NOT ${PLATFORM_WII_SUBSTRING} EQUAL -1)
@@ -20,8 +21,14 @@ if(NOT ${PLATFORM_WII_SUBSTRING} EQUAL -1)
 	message("Configuring build for Wii")
 	set(PLATFORM "PLATFORM_WII")
 
-	# Set the toolchain file to wii
-	set(CMAKE_TOOLCHAIN_FILE "${PROJECT_SOURCE_DIR}/CMake/Toolchains/Wii.cmake")
+	# Ensure that the user has passed a toolchain file variable or else the build won't work
+	if(NOT CMAKE_TOOLCHAIN_FILE)
+		message("Toolchain variable not set")
+		message("In order for wii builds to work the toolchain file must be loaded early")
+		message(FATAL_ERROR "use cmake -DCMAKE_TOOLCHAIN_FILE=<PATH TO CONCORDE>/Cmake/Toolchains/Wii.cmake ..")
+	endif()
+
+
 else()
 	# Not detected wii, assume desktop
 	message("Configuring build for Desktop")
@@ -34,5 +41,4 @@ endif()
 set(CACHE_PLATFORM "${PLATFORM}" CACHE STRING "Concorde declaration storing the chosen target platform from command line options" FORCE)
 
 # Set the languages to C and Cxx
-enable_language(CXX)
-enable_language(C)
+enable_language(C CXX)
