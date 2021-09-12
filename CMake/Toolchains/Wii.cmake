@@ -35,9 +35,7 @@ set(TOOLS_PREFIX "${DEVKITPRO}/devkitPPC/bin/powerpc-eabi-")
 set(CMAKE_C_COMPILER "${TOOLS_PREFIX}gcc")
 set(CMAKE_CXX_COMPILER "${TOOLS_PREFIX}g++")
 
-
-try_compile()
-
-
+# Set the basic CC compiler flags that we need to ensure the compiler produces an output
+set(CFLAGS "-Wall -Wextra -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float")
 
 message("Called from toolchain file")
