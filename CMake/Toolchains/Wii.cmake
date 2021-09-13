@@ -13,8 +13,9 @@ set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_LIST_DIR}/Wii.cmake")
 # inorder to do that we need to set the appropariate cmake variables
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
-set(CMAKE_SYSTEM_PROCESSOR powerpc_eabi) 
-set(CMAKE_CROSS_COMPILING TRUE)
+set(CMAKE_SYSTEM_PROCESSOR "powerpc-eabi")
+set(CMAKE_EXECUTABLE_FORMAT "ELF") 
+set(CMAKE_CROSS_COMPILING ON)
 
 
 # Find the path to the devkitpro pro install by first checking the environment variable
@@ -31,11 +32,25 @@ endif()
 
 # Define the location prerequisite path to the devkitPPC tools
 set(TOOLS_PREFIX "${DEVKITPRO}/devkitPPC/bin/powerpc-eabi-")
-
 set(CMAKE_C_COMPILER "${TOOLS_PREFIX}gcc")
 set(CMAKE_CXX_COMPILER "${TOOLS_PREFIX}g++")
 
-# Set the basic CC compiler flags that we need to ensure the compiler produces an output
-set(CFLAGS "-Wall -Wextra -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float")
+# Set the basic compiler flags that make the compiler build for wii
+set(CMAKE_C_FLAGS "-Wall -Wextra -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS}")
+
+# Link to the default libraries
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -L${DEVKITPRO}/libogc/lib/wii")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lwiiuse -lbte -logc -lm")
+
+# Pass the C flags to CXX
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS}")
+
+# Set the basic include directories
+include_directories("${DEVKITPRO}/libogc/include")
+
+# Set the basic link directories
+link_directories("${DEVKITPRO}/libogc/lib/wii")
+
 
 message("Called from toolchain file")
