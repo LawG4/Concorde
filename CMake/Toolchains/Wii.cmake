@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 # Make Cmake create a Wii compatable build system
 # The toolchain needs to be passed during the configuration step at command line
 # So we know the user is building for wii, set the internal cmake variable to use wii
@@ -51,6 +52,3 @@ include_directories("${DEVKITPRO}/libogc/include")
 
 # Set the basic link directories
 link_directories("${DEVKITPRO}/libogc/lib/wii")
-
-
-message("Called from toolchain file")
