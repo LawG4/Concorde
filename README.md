@@ -8,8 +8,6 @@ When you're coding on the Wii, a lot of the time it's easiest to embed the asset
 
 ## Quick Start
 
-------
-
 ### Create a CMake Project for your build
 
 Start by declaring a project with no languages, this prevents early compiler checks from failing
@@ -50,7 +48,7 @@ add_concorde_executable("${PROJ_NAME}" "${SOURCE_FILES}")
   ```
 
 - When you have finished developing on desktop, configure a build for Wii. 
-  Unfortunately for windows users, you'll need WSL
+  Unfortunately for windows users; Windows sucks. Using visual studio generator doesn't allow for custom compilers, and even when you use ninja the compiler seemingly fails CMake's checks, despite not returning an error. So you'll need to do this build on WSL. Thankfully you'll only be calling the build, so it'll be nice and quick.
 
   ```bash
   # Starting from your projects root directory
@@ -60,8 +58,6 @@ add_concorde_executable("${PROJ_NAME}" "${SOURCE_FILES}")
   # Actually build
   cmake --build .
   ```
-
-------
 
 ## Structure
 
