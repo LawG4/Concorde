@@ -42,3 +42,6 @@ set(CACHE_PLATFORM "${PLATFORM}" CACHE STRING "Concorde declaration storing the 
 
 # Set the languages to C and Cxx
 enable_language(C CXX)
+
+# Include the function to add concorde executables
+include("${CMAKE_CURRENT_LIST_DIR}/AddExecutable.cmake")

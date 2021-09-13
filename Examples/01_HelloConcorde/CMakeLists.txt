@@ -11,7 +11,4 @@ add_subdirectory(../../ ${CMAKE_BINARY_DIR}/Concorde)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${EXAMPLE_NAME})
 
 # Add the executable
-add_executable(${EXAMPLE_NAME} Main.c)
-
-# Link to Concorde
-target_link_libraries(${EXAMPLE_NAME} Concorde)
+add_concorde_executable("${EXAMPLE_NAME}" "Main.c")
