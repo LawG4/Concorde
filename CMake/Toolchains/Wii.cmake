@@ -18,6 +18,15 @@ set(CMAKE_SYSTEM_PROCESSOR "powerpc-eabi")
 set(CMAKE_EXECUTABLE_FORMAT "ELF") 
 set(CMAKE_CROSS_COMPILING ON)
 
+# Make CMake test the compiler by compiling a library instead of an executable
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+
+# Try To force CMake to think that the compilers works
+set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_FORCED True)
+set(CMAKE_C_COMPILER_FORCED True)
+
 
 # Find the path to the devkitpro pro install by first checking the environment variable
 # However on windows that environment variable won't work. 
@@ -31,10 +40,17 @@ if(NOT EXISTS ${DEVKITPRO})
 	message(FATAL_ERROR "Could not find DevkitPro Path. Configure the Concorde Config.cmake")
 endif()
 
+# If we are on windows the compiler needs to have an exe extension
+if(WIN32)
+	set(TOOLS_SUFFIX ".exe")
+else()
+	set(TOOLS_SUFFIX "")
+endif()
+
 # Define the location prerequisite path to the devkitPPC tools
 set(TOOLS_PREFIX "${DEVKITPRO}/devkitPPC/bin/powerpc-eabi-")
-set(CMAKE_C_COMPILER "${TOOLS_PREFIX}gcc")
-set(CMAKE_CXX_COMPILER "${TOOLS_PREFIX}g++")
+set(CMAKE_C_COMPILER "${TOOLS_PREFIX}gcc${TOOLS_SUFFIX}")
+set(CMAKE_CXX_COMPILER "${TOOLS_PREFIX}g++${TOOLS_SUFFIX}")
 
 # Set the basic compiler flags that make the compiler build for wii
 set(CMAKE_C_FLAGS "-Wall -Wextra -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float")
