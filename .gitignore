@@ -6,7 +6,8 @@ compile_commands.json
 
 # Build folder
 build/*
-
+build_desktop/*
+build_wii/*
 # Prerequisites
 *.d
 

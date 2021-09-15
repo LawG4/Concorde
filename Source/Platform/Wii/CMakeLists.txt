@@ -1,3 +1,5 @@
+# Link to the Wii libraries
+target_link_libraries(Concorde wiiuse bte ogc m)
 
 # Add all the source files
 set(SOURCE 

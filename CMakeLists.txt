@@ -24,10 +24,6 @@ add_subdirectory(Source)
 # Add the examples to the build system
 add_subdirectory(Examples)
 
-# Link to the Wii libraries
-target_link_libraries(Concorde wiiuse bte ogc m)
-
-
 # Sort the source files to have the same folder structure
 get_target_property(SourceList Concorde SOURCES)
 function(assign_source_group)
