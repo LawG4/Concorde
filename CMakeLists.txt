@@ -12,18 +12,21 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake/Modules/
 # Detect the users platform selection
 include("${PROJECT_SOURCE_DIR}/CMake/Toolchains/Platforms.cmake")
 
-# Add the concorde include directories
+# Add the concorde include directories to Concorde and projects including Concorde
 include_directories("${PROJECT_SOURCE_DIR}/Include")
-
-
 
 # Create a target to put all the sources into
 add_library(Concorde STATIC Source/Concore.c Include/Concorde.h)
-# Get all the source files 
+
+# Get the rest of the Concorde source files 
 add_subdirectory(Source)
 
-# Add the examples
+# Add the examples to the build system
 add_subdirectory(Examples)
+
+# Link to the Wii libraries
+target_link_libraries(Concorde wiiuse bte ogc m)
+
 
 # Sort the source files to have the same folder structure
 get_target_property(SourceList Concorde SOURCES)
