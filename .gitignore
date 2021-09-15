@@ -1,3 +1,9 @@
+# ignore VS code settings
+.vscode/*
+
+# Compile commands database
+compile_commands.json
+
 # Build folder
 build/*
 
