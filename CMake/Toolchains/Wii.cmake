@@ -68,3 +68,6 @@ include_directories("${DEVKITPRO}/libogc/include")
 
 # Set the basic link directories
 link_directories("${DEVKITPRO}/libogc/lib/wii")
+
+# Finally use cmake to generate a compiler commands data base that can be used for intellisense
+set(CMAKE_EXPORT_COMPILE_COMMANDS True)
