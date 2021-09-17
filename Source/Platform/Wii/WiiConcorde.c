@@ -72,10 +72,10 @@ uint8_t initGX(const concorde_init_info *p_init_info)
 
     /*Pass the clear colour onto GX*/
     uint32_t clearColor = p_init_info->fb_clear_color;
-    GXColor gxClearColor = {.r = (clearColor & 0xFF000000) >> 24,
-    .g = (clearColor & 0x00FF0000) >> 16,
-    .b = (clearColor & 0x0000FF00) >> 8,
-    .a = clearColor & 0x000000FF};
+    GXColor gxClearColor = {.r = (clearColor >> 24) & 0xFF,
+    .g = (clearColor >> 16) & 0xFF,
+    .b = (clearColor >> 8) & 0xFF,
+    .a = clearColor & 0xFF};
     GX_SetCopyClear(gxClearColor, 0x00FFFFFF);
 
 
@@ -97,7 +97,15 @@ uint8_t concorde_init(const concorde_init_info *p_init_info)
     {
         WPAD_ScanPads();
 
+        GX_CopyDisp(framebuffers[fbIndex], GX_TRUE);
+
+        VIDEO_SetNextFramebuffer(framebuffers[fbIndex]);
+        VIDEO_Flush();
         VIDEO_WaitVSync();
+        fbIndex ^= 1;
+
+
+
     }
 
     return CONCORDE_SUCCESS;
