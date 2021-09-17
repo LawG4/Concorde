@@ -41,8 +41,7 @@ uint8_t initVideo()
     VIDEO_Configure(videoMode);
     /*Tell the video system where the next framebuffer is*/
     VIDEO_SetNextFramebuffer(framebuffers[fbIndex]);
-    /*Make the display visible*/
-    VIDEO_SetBlack(FALSE);
+
     /*Send the video settings in RAM to the video hardware*/
     VIDEO_Flush();
 
@@ -78,6 +77,10 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     .a = clearColor & 0xFF};
     GX_SetCopyClear(gxClearColor, 0x00FFFFFF);
 
+    /*Run through framebuffers before turning the screen on as GX initialises as green*/
+    concorde_swap_buffers();
+    concorde_swap_buffers();
+    VIDEO_SetBlack(FALSE);
 
     return CONCORDE_SUCCESS;
 }
@@ -102,7 +105,9 @@ void concorde_scan_inputs(void)
 
 void concorde_swap_buffers()
 {
-    /*Clear the framebuffer and copy it to internal memory*/
+    /*Copy the internal framebuffer (The one in the GPUs ram) into our external framebuffer
+    So we can send the contents of that framebuffer to the screen
+    Also clear the internal framebuffer while we're at it so that it's fresh*/
     GX_CopyDisp(framebuffers[fbIndex], GX_TRUE);
 
     /*Tell the video hardware where the next framebuffer is*/
