@@ -55,6 +55,11 @@ uint8_t concorde_should_close(void);
 void concorde_scan_inputs(void);
 
 /**
+ * Swaps the framebuffers, displays the next frame 
+ */ 
+void concorde_swap_buffers(void);
+
+/**
  * A simple helper function to help the user pack RGB into one int. 0-255
  * @param R Red
  * @param G Green

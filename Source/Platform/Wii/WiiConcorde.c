@@ -92,26 +92,24 @@ uint8_t concorde_init(const concorde_init_info *p_init_info)
     if(initGX(p_init_info) != CONCORDE_SUCCESS)
         return CONCORDE_VIDEO_INIT_FAILURE;
 
-    /*Enter into a temp rendering loop*/
-    while(1)
-    {
-        WPAD_ScanPads();
-
-        GX_CopyDisp(framebuffers[fbIndex], GX_TRUE);
-
-        VIDEO_SetNextFramebuffer(framebuffers[fbIndex]);
-        VIDEO_Flush();
-        VIDEO_WaitVSync();
-        fbIndex ^= 1;
-
-
-
-    }
-
     return CONCORDE_SUCCESS;
 }
 
 void concorde_scan_inputs(void)
 {
+    WPAD_ScanPads();
+}
 
+void concorde_swap_buffers()
+{
+    /*Clear the framebuffer and copy it to internal memory*/
+    GX_CopyDisp(framebuffers[fbIndex], GX_TRUE);
+
+    /*Tell the video hardware where the next framebuffer is*/
+    VIDEO_SetNextFramebuffer(framebuffers[fbIndex]);
+    VIDEO_Flush();
+
+    /*Wait for the next frame*/
+    VIDEO_WaitVSync();
+    fbIndex ^= 1;
 }

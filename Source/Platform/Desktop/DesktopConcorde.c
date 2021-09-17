@@ -147,3 +147,10 @@ void concorde_scan_inputs(void)
         }
     }
 }
+
+void concorde_swap_buffers()
+{
+    /*Clear and swap the buffer*/
+    glClear(GL_COLOR_BUFFER_BIT);
+    SDL_GL_SwapWindow(window);
+}
