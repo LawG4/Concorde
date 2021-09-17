@@ -11,5 +11,8 @@ int main()
     {
         /*Process inputs, including should the window close*/
         concorde_scan_inputs();
+
+        /*Swap the framebuffers*/
+        concorde_swap_buffers();
     }
 }
