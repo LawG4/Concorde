@@ -5,4 +5,8 @@ target_link_libraries(Concorde wiiuse bte ogc m)
 set(SOURCE 
 	WiiConcorde.c)
 
-target_sources(Concorde PRIVATE ${SOURCE})
+# Header files
+set(HEADERS
+	Wii.h)
+
+target_sources(Concorde PRIVATE ${SOURCE} ${HEADERS})
