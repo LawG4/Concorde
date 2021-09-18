@@ -1,6 +1,4 @@
-# ***Project Concorde***
-
-------
+<p align="center"><img src="Documentation\LogoThinner.png" alt="logo" width="100%"/></p>
 
 There's no line by line debugging available for coding on the Wii, logging is difficult as you have to retrieve it physically from the wii, or mount a virtual drive image from the emulator. The aim of this project is to allow you access line by line debugging on your desktop and then port the code easily to the Wii. 
 
