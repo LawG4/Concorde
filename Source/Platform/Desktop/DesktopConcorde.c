@@ -150,7 +150,9 @@ void concorde_scan_inputs(void)
 
 void concorde_swap_buffers()
 {
-    /*Clear and swap the buffer*/
-    glClear(GL_COLOR_BUFFER_BIT);
+    /*Swap the buffers, so we display the buffer we were just writing to*/
     SDL_GL_SwapWindow(window);
+
+    /*Clear the buffers we're drawing to so it's fresh*/
+    glClear(GL_COLOR_BUFFER_BIT);
 }
