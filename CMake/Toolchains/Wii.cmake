@@ -10,6 +10,13 @@ set(CACHE_PLATFORM "${PLATFORM}" CACHE STRING "Concorde declaration storing the 
 # so make the toolchain variable global
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_LIST_DIR}/Wii.cmake")
 
+# When we set cmake to cross compile, the win32 variable becomes unset 
+# we need that variable because windows tools need .exe suffix to be considered valid
+if(WIN32)
+	set(CONCORDE_WIN32 TRUE)
+	set(CONCORDE_WIN32 "${CONCORDE_WIN32}" CACHE BOOL "If the build machine is running windows natively")
+endif()
+
 # We need to ensure that Cmake doesn't look for the host system compilers and libraries 
 # inorder to do that we need to set the appropariate cmake variables
 set(CMAKE_SYSTEM_NAME Generic)
@@ -41,7 +48,7 @@ if(NOT EXISTS ${DEVKITPRO})
 endif()
 
 # If we are on windows the compiler needs to have an exe extension
-if(WIN32)
+if(WIN32 OR CONCORDE_WIN32)
 	set(TOOLS_SUFFIX ".exe")
 else()
 	set(TOOLS_SUFFIX "")
