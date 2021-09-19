@@ -4,6 +4,9 @@
  */
 #ifndef CONCORDE_MAIN_HEADER
 #define CONCORDE_MAIN_HEADER
+
+#include "Concorde_Vertex_Attributes.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
