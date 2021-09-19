@@ -17,11 +17,28 @@ function(add_concorde_executable concorde_target concorde_sources)
 	
 	# We're targetting the Wii
 	else()
-		set(concorde_target "${concorde_target}.elf")
-		message("Adding Wii target ${concorde_target}")
-		add_executable(${concorde_target} "${concorde_sources}")
+		message("Adding Wii target ${concorde_target}.elf")
+		add_executable("${concorde_target}.elf" "${concorde_sources}")
 
-		# Add a custom target for the DOL file
+		# Get the absolute path of the outputs
+		set(ELF_OUTPUT "${concorde_target}.elf")
+		set(DOL_OUTPUT "${concorde_target}.dol")
+
+		# Get that path to the devkit tool that produces dol files
+		set(ELF2DOL "${DEVKITPRO}/tools/bin/elf2dol")
+		if(WIN32 OR CONCORDE_WIN32)
+			set(ELF2DOL "${ELF2DOL}.exe")
+		endif()
+
+		# Add a post build command to the concorde target which creates the dol file
+		add_custom_command(TARGET "${concorde_target}.elf" POST_BUILD
+			DEPENDS "${concorde_sources}"
+			COMMAND "${ELF2DOL}" "${ELF_OUTPUT}" "${DOL_OUTPUT}"
+			COMMENT "Producing dol file ..."
+			)
+
+		# So we can like to concorde regardles of if building for wii or desktop
+		set(concorde_target "${concorde_target}.elf")
 	endif()
 
 	# link our new target to concorde
