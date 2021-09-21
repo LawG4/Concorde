@@ -12,6 +12,10 @@ int main()
         /*Process inputs, including should the window close*/
         concorde_scan_inputs();
 
+        /*Detect if the user has pressed the home button and break*/
+        if (concorde_buttons_currently_down() & CONCORDE_KEY_HOME)
+            break;
+
         /*Swap the framebuffers*/
         concorde_swap_buffers();
     }
