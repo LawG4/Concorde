@@ -5,7 +5,7 @@
 #ifndef CONCORDE_MAIN_HEADER
 #define CONCORDE_MAIN_HEADER
 
-#include "Concorde_Vertex_Attributes.h"
+#include "Concorde_Input_System.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -53,14 +53,19 @@ uint8_t concorde_init(const concorde_init_info *p_init_info);
 uint8_t concorde_should_close(void);
 
 /**
-* Scans the inputs and stores the results in a cross platform friendly manner for the user to retrieve later
-*/
+ * Scans the inputs and stores the results in a cross platform friendly manner for the user to retrieve later
+ */
 void concorde_scan_inputs(void);
 
 /**
- * Swaps the framebuffers, displays the next frame 
- */ 
+ * Swaps the framebuffers, displays the next frame
+ */
 void concorde_swap_buffers(void);
+
+/**
+ * Destorys all of the resources created by concorde and exits.
+ */
+void concorde_deint(void);
 
 /**
  * A simple helper function to help the user pack RGB into one int. 0-255

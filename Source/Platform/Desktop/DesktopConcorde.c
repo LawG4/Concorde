@@ -156,3 +156,9 @@ void concorde_swap_buffers()
     /*Clear the buffers we're drawing to so it's fresh*/
     glClear(GL_COLOR_BUFFER_BIT);
 }
+
+void concorde_deint(void)
+{
+    SDL_GL_DeleteContext(sdl_GL);
+    SDL_DestroyWindow(window);
+}

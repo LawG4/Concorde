@@ -103,7 +103,7 @@ void concorde_scan_inputs(void)
     WPAD_ScanPads();
 }
 
-void concorde_swap_buffers()
+void concorde_swap_buffers(void)
 {
     /*Copy the internal framebuffer (The one in the GPUs ram) into our external framebuffer
     So we can send the contents of that framebuffer to the screen
@@ -117,4 +117,14 @@ void concorde_swap_buffers()
     /*Wait for the next frame*/
     VIDEO_WaitVSync();
     fbIndex ^= 1;
+}
+
+void concorde_deint(void)
+{
+    /*Wait for the current frame to end and then make the exit*/
+    VIDEO_WaitVSync();
+
+    /*Haven't malloced anything yet*/
+
+    exit(0);
 }

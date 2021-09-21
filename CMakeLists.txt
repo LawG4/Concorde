@@ -16,7 +16,10 @@ include("${PROJECT_SOURCE_DIR}/CMake/Toolchains/Platforms.cmake")
 include_directories("${PROJECT_SOURCE_DIR}/Include")
 
 # Create a target to put all the sources into
-add_library(Concorde STATIC Source/Concore.c Include/Concorde.h)
+add_library(Concorde STATIC 
+    Source/Concore.c 
+    Include/Concorde.h
+    Include/Concorde_Input_System.h)
 
 # Get the rest of the Concorde source files 
 add_subdirectory(Source)

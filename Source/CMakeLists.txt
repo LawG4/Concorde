@@ -11,3 +11,6 @@ target_include_directories(Concorde PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
 # Add in the platform specific code base with abstraction layer
 add_subdirectory(Platform)
+
+# Add in the common code for the input system
+add_subdirectory(Input)
