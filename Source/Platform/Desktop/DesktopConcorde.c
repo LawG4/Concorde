@@ -125,6 +125,10 @@ uint8_t concorde_init(const concorde_init_info *p_init_info)
 
 void concorde_scan_inputs(void)
 {
+    /*Clear the downed and upped keys from the last scan*/
+    buttons_downed_bit_mask = CONCORDE_KEY_NONE;
+    buttons_upped_bit_mask = CONCORDE_KEY_NONE;
+
     /*Get the SDL events that happened*/
     SDL_Event event;
 
@@ -143,11 +147,25 @@ void concorde_scan_inputs(void)
             default:
                 break;
             }
+
+            /*Key down events*/
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym)
+            {
+            case _CONCORDE_DESKTOP_HOME:
+                buttons_downed_bit_mask |= CONCORDE_KEY_HOME;
+                break;
+            default:
+                break;
+            }
         /*Default case*/
         default:
             break;
         }
     }
+
+    /*Set all the buttons pressed this frame as into a down state*/
+    buttons_down_bit_mask |= buttons_downed_bit_mask;
 }
 
 void concorde_swap_buffers()
