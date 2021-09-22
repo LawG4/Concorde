@@ -26,7 +26,7 @@
  */
 
 /*The key that simulates pressing home on a wii-mote*/
-#define _CONCORDE_DESKTOP_HOME SDLK_ENTER
+#define _CONCORDE_DESKTOP_HOME SDLK_RETURN
 
 /**
  * Returns the concorde buttons that have been pressed down during the last scanned inputs
@@ -60,7 +60,7 @@ uint8_t concorde_joystick_state(uint8_t playerID, uint8_t stickID, float *x, flo
 /**
  * Define the concorde keykoads for buttons pressed
  */
-#define CONCORDE_KEY_NONE 0
-#define CONCORDE_KEY_HOME 1
+#define CONCORDE_KEY_NONE (0)
+#define CONCORDE_KEY_HOME (1)
 
 #endif // !__CONCORDE_INPUT_SYSTEM_H__
