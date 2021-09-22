@@ -2,6 +2,12 @@
  * Provide functionality for the functions declared in the public concorde_inputs.h
  */
 #include "Concorde.h"
+#include "Concorde_Internal_Inputs.h"
+/*Internal variables that are used for keeping track*/
+
+uint32_t buttons_downed_bit_mask = 0;
+uint32_t buttons_down_bit_mask = 0;
+uint32_t buttons_up_bit_mask = 0;
 
 uint32_t concorde_buttons_downed()
 {

@@ -1,6 +1,8 @@
 #include "Concorde.h"
 #include "Desktop.h"
 
+#include "Concorde_Internal_Inputs.h"
+
 #include <stdio.h>
 
 /*Set Default values for the OpenGL version*/
