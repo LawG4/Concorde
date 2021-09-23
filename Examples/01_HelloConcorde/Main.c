@@ -19,4 +19,7 @@ int main()
         /*Swap the framebuffers*/
         concorde_swap_buffers();
     }
+
+    /*Clean up concorde*/
+    concorde_deint();
 }

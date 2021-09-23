@@ -119,7 +119,4 @@ void concorde_deint(void)
 {
     /*Wait for the current frame to end and then make the exit*/
     VIDEO_WaitVSync();
-
-    /*Haven't malloced anything yet*/
-
 }
