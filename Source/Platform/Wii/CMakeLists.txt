@@ -3,7 +3,8 @@ target_link_libraries(Concorde wiiuse bte ogc m)
 
 # Add all the source files
 set(SOURCE 
-	WiiConcorde.c)
+	WiiConcorde.c
+	WiiInputs.c)
 
 # Header files
 set(HEADERS

@@ -24,6 +24,7 @@ uint8_t initVideo()
 
     /*Initialise any connected controllers*/
     WPAD_Init();
+    PAD_Init();
 
     /*Obtain the video settings from the Wii, this depends on the Wii's menu settings*/
     videoMode = VIDEO_GetPreferredMode(NULL);
@@ -98,11 +99,6 @@ uint8_t concorde_init(const concorde_init_info *p_init_info)
     return CONCORDE_SUCCESS;
 }
 
-void concorde_scan_inputs(void)
-{
-    WPAD_ScanPads();
-}
-
 void concorde_swap_buffers(void)
 {
     /*Copy the internal framebuffer (The one in the GPUs ram) into our external framebuffer
@@ -126,5 +122,4 @@ void concorde_deint(void)
 
     /*Haven't malloced anything yet*/
 
-    exit(0);
 }
