@@ -37,6 +37,13 @@ function(add_concorde_executable concorde_target concorde_sources)
 			COMMENT "Producing dol file ..."
 			)
 
+		# Add a post build command to run the demo on dolphin
+		add_custom_target("run_${concorde_target}"
+			DEPENDS "${concorde_target}.elf"
+			COMMAND "${CONC_DOLPHIN_CMD}" "-b" "${ELF_OUTPUT}"
+			COMMENT "Running dolphin : ${CONC_DOLPHIN_CMD}"
+			) 
+		set_target_properties("run_${concorde_target}" PROPERTIES EXCLUDE_FROM_ALL TRUE)
 		# So we can like to concorde regardles of if building for wii or desktop
 		set(concorde_target "${concorde_target}.elf")
 	endif()
