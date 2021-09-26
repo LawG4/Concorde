@@ -53,4 +53,17 @@ void concorde_render_begin(concorde_rendering_mode rendering_mode,
  */
 uint8_t concorde_render_end(void);
 
+/*Define the functions needed for specific types of rendering*/
+
+/**
+ * Submits a vertex component directly to the graphics proccessor
+ * @param vertex_component Which component of the vertex we're writing this data
+ * for
+ * @param x First subsection of the vertex component
+ * @param y second subsection of the vertex component
+ * @param ... Any remaining sections of the vertex component
+ */
+void concorde_immediate_vertex(concorde_vertex_mask vertex_component, float x,
+                               float y, ...);
+
 #endif  // !__CONCORDE_RENDER_H__
