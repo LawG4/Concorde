@@ -19,7 +19,8 @@ include_directories("${PROJECT_SOURCE_DIR}/Include")
 add_library(Concorde STATIC 
     Source/Concore.c 
     Include/Concorde.h
-    Include/Concorde_Input_System.h)
+    Include/Concorde_Input_System.h
+    Include/Concorde_Render.h)
 
 # Get the rest of the Concorde source files 
 add_subdirectory(Source)
