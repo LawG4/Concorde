@@ -14,3 +14,8 @@ add_subdirectory(Platform)
 
 # Add in the common code for the input system
 add_subdirectory(Input)
+
+# Add in the common code for rendering. That will be tracking 
+# the state and also ensuring that enough vertices have been
+# submitted so that GX doesn't hang
+add_subdirectory(Render)  
