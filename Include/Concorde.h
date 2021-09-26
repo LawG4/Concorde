@@ -6,7 +6,7 @@
 #define CONCORDE_MAIN_HEADER
 
 #include "Concorde_Input_System.h"
-
+#include "Concorde_Render.h"
 #include <stdbool.h>
 #include <stdint.h>
 
