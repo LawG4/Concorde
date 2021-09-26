@@ -33,6 +33,13 @@ typedef enum {
   Tex = 1 << 2
 } concorde_vertex_mask;
 
+typedef enum {
+  Success = 0,
+  Already_Rendering,
+  Not_Finished_Rendering
+
+} concorde_render_error_codes;
+
 /**
  * Starts the concorde draw call
  * @param rendering_mode Type of concorde rendering the user would like to use
@@ -41,17 +48,17 @@ typedef enum {
  * @param vertex_mask Which features the vertices have, ie texture or color
  * coords
  * @param vertex_count How many vertices the user is submitting
+ * @returns a render error code or success
  */
-void concorde_render_begin(concorde_rendering_mode rendering_mode,
-                           concorde_primative primative,
-                           concorde_vertex_mask vertex_mask,
-                           uint32_t vertex_count);
+concorde_render_error_codes concorde_render_begin(
+    concorde_rendering_mode rendering_mode, concorde_primative primative,
+    concorde_vertex_mask vertex_mask, uint32_t vertex_count);
 
 /**
  * Ends the concorde draw call, validates the user has submitted enough vertices
  * @returns 0 if the draw call was successful or else an error code.
  */
-uint8_t concorde_render_end(void);
+concorde_render_error_codes concorde_render_end(void);
 
 /*Define the functions needed for specific types of rendering*/
 
@@ -63,7 +70,7 @@ uint8_t concorde_render_end(void);
  * @param y second subsection of the vertex component
  * @param ... Any remaining sections of the vertex component
  */
-void concorde_immediate_vertex(concorde_vertex_mask vertex_component, float x,
-                               float y, ...);
+concorde_render_error_codes concorde_immediate_vertex(
+    concorde_vertex_mask vertex_component, float x, float y, ...);
 
 #endif  // !__CONCORDE_RENDER_H__
