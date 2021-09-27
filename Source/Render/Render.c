@@ -30,11 +30,14 @@ concorde_render_error_codes concorde_render_begin(
 concorde_render_error_codes concorde_render_end(void) {
   /*Is concorde even rendering?*/
   if (!Concorde_Rendering) {
-    return crec_success;
+    return crec_already_rendering;
   }
+  /*Assume the user has done this correctly until proven otherwise*/
+  concorde_render_error_codes err = crec_success;
 
   /*Has the user submitted enough vertices?*/
   if (Concorde_Vert_Remaining != 0) {
+    err = crec_not_finished_rendering;
     /*Somehow recover from this?*/
   }
 
@@ -43,7 +46,7 @@ concorde_render_error_codes concorde_render_end(void) {
   /*Exit out*/
   Concorde_Rendering = false;
   Concorde_Vert_Remaining = 0;
-  return crec_success;
+  return err;
 }
 
 concorde_render_error_codes concorde_immediate_vertex(
