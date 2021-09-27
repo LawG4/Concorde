@@ -11,6 +11,13 @@
 #include "Concorde_Render.h"
 
 /*Declarations for rendering exclusively on desktop*/
-typedef enum { Success = 0, Shader_Not_Found } Concorde_GL_Render;
+typedef enum { GL_Success = 0, GL_Shader_Not_Found } Concorde_GL_Render;
 
+extern const uint8_t shaderCount;
+extern const char* ShaderNames[1];
+/**
+ * Checks that all of the shaders have been found
+ * and that yourr gl has enough vertex attributes
+ */
+Concorde_GL_Render init_gl_rendering(void);
 #endif  // !__GL_RENDER_H__
