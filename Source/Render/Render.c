@@ -45,3 +45,8 @@ concorde_render_error_codes concorde_render_end(void) {
   Concorde_Vert_Remaining = 0;
   return crec_success;
 }
+
+concorde_render_error_codes concorde_immediate_vertex(
+    concorde_vertex_mask vertex_component, float x, float y, ...) {
+  return crec_success;
+}
