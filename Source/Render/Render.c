@@ -16,7 +16,7 @@ concorde_render_error_codes concorde_render_begin(
     concorde_vertex_mask vertex_mask, uint32_t vertex_count) {
   /*Check concorde isn't already rendering something else*/
   if (Concorde_Rendering) {
-    return Already_Rendering;
+    return crec_already_rendering;
   }
   Concorde_Rendering = true;
   Concorde_Vert_Remaining = vertex_count;
@@ -24,13 +24,13 @@ concorde_render_error_codes concorde_render_begin(
   /*Call into the platform specific rendering function*/
   /*Todo implement this bad boi*/
 
-  return Success;
+  return crec_success;
 }
 
 concorde_render_error_codes concorde_render_end(void) {
   /*Is concorde even rendering?*/
   if (!Concorde_Rendering) {
-    return Success;
+    return crec_success;
   }
 
   /*Has the user submitted enough vertices?*/
@@ -43,5 +43,5 @@ concorde_render_error_codes concorde_render_end(void) {
   /*Exit out*/
   Concorde_Rendering = false;
   Concorde_Vert_Remaining = 0;
-  return Success;
+  return crec_success;
 }

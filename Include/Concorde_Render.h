@@ -15,28 +15,28 @@
 /*Define the different styles of rendering concorde will let a user do*/
 typedef enum {
   /*Submit each vertex point component one at a time in order*/
-  Immediate,
+  crm_immediate,
   /*Submit a buffer of ordered vertices*/
-  Buffered,
+  crm_buffered,
   /*Submit a buffer of vertices access by the order described in the index
      buffer*/
-  Indexed
+  crm_indexed
 } concorde_rendering_mode;
 
 /*Define a list of all the primatives concorde will let you render*/
-typedef enum { Triangle, Quad } concorde_primative;
+typedef enum { cp_triangle = 3, cp_quad = 4 } concorde_primative;
 
 /*Define flags that tell concorde which properties the users vertices have*/
 typedef enum {
-  Position = 1,
-  Color = 1 << 1,
-  Tex = 1 << 2
+  cvm_position = 1,
+  cvm_color = 1 << 1,
+  cvm_tex = 1 << 2
 } concorde_vertex_mask;
 
 typedef enum {
-  Success = 0,
-  Already_Rendering,
-  Not_Finished_Rendering
+  crec_success = 0,
+  crec_already_rendering,
+  crec_not_finished_rendering
 
 } concorde_render_error_codes;
 
