@@ -11,6 +11,8 @@ set(HEADERS
 
 target_sources(Concorde PRIVATE ${SOURCE} ${HEADERS})
 
+# Add in the rendering subdirectory
+add_subdirectory(Render)
 
 # Find OpenGL
 find_package(OpenGL REQUIRED QUIET)
