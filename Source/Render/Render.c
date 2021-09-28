@@ -1,6 +1,8 @@
 /**
  * Writes the common code for the rendering systems
  */
+#include <stdarg.h>
+
 #include "Concorde.h"
 #include "Concorde_Internal_Render.h"
 #include "Concorde_Render.h"
@@ -51,5 +53,29 @@ concorde_render_error_codes concorde_render_end(void) {
 
 concorde_render_error_codes concorde_immediate_vertex(
     concorde_vertex_mask vertex_component, float x, float y, ...) {
-  return crec_success;
+  /*Are we currently rendering?*/
+  if (!Concorde_Rendering || Concorde_Vert_Remaining == 0) return crec_success;
+
+  /*Start the indefinite length variable list*/
+  float z;
+  va_list vl;
+  va_start(vl, y);
+
+  /*Depending on the vertex component passed, call into a different type of
+   * platform dependant rendering command*/
+  concorde_render_error_codes err = crec_success;
+  switch (vertex_component) {
+    case cvm_position:
+      /*Use variable arguments to get the third component*/
+      z = va_arg(vl, float);
+      err = platform_immediate_render_pos(x, y, z);
+      break;
+    default:
+      /*Invalid vertex mask*/
+      err = crec_invalid_vertex_mask;
+      break;
+  }
+  /*Reduce the current number of vertices left to count*/
+  Concorde_Vert_Remaining--;
+  return err;
 }
