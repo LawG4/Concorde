@@ -10,6 +10,7 @@ set(GL_RENDER_HEADER
 
 set(GL_RENDER_SOURCE
 	GL_Render_init.c
+	GL_Render_Immediate.c
 )
 
 # Add the render source to concorde
