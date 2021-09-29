@@ -24,9 +24,9 @@ concorde_render_error_codes concorde_render_begin(
   Concorde_Vert_Remaining = vertex_count;
 
   /*Call into the platform specific rendering function*/
-  /*Todo implement this bad boi*/
-
-  return crec_success;
+  concorde_render_error_codes err = platform_render_begin(
+      rendering_mode, primative, vertex_mask, vertex_count);
+  return err;
 }
 
 concorde_render_error_codes concorde_render_end(void) {

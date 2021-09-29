@@ -17,6 +17,14 @@ extern bool Concorde_Rendering;
 extern uint32_t Concorde_Vert_Remaining;
 
 /**
+ * Pass on the variables for beginning the draw call passed onto the platform
+ * dependant rendering system
+ */
+concorde_render_error_codes platform_render_begin(
+    concorde_rendering_mode rendering_mode, concorde_primative primative,
+    concorde_vertex_mask vertex_mask, uint32_t vertex_count);
+
+/**
  * Immediate rendering commands
  */
 
