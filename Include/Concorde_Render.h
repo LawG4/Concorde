@@ -37,7 +37,8 @@ typedef enum {
   crec_success = 0,
   crec_already_rendering,
   crec_not_finished_rendering,
-  crec_invalid_vertex_mask
+  crec_invalid_vertex_mask,
+  crec_vertex_alloc_failed
 
 } concorde_render_error_codes;
 
