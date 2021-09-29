@@ -33,5 +33,15 @@ concorde_render_error_codes platform_render_begin(
   }
   return crec_success;
 }
+
+concorde_render_error_codes platform_render_end() {
+  /*Free each of the vertex components allocated this draw call*/
+  if (gl_internal_vertex_mask & cvm_position) {
+    free(gl_vertex_pos);
+    gl_vertex_pos = NULL;
+  }
+
+  /*Reset the internal vertex component mask*/
+  gl_internal_vertex_mask = 0;
   return crec_success;
 }

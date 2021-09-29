@@ -25,6 +25,11 @@ concorde_render_error_codes platform_render_begin(
     concorde_vertex_mask vertex_mask, uint32_t vertex_count);
 
 /**
+* End the platform specfic rendering call
+*/
+concorde_render_error_codes platform_render_end();
+
+/**
  * Immediate rendering commands
  */
 
