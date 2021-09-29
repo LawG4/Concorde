@@ -13,8 +13,20 @@
 /*Declarations for rendering exclusively on desktop*/
 typedef enum { GL_Success = 0, GL_Shader_Not_Found } Concorde_GL_Render;
 
+/*Shader names*/
 extern const uint8_t shaderCount;
 extern const char* ShaderNames[1];
+
+/**
+* pointer that represents the list of vertices positions we're gonna render
+*/
+extern float* gl_vertex_pos;
+
+/**
+* Value to keep track of the vertex components we're rendering at the moment
+*/
+extern concorde_vertex_mask gl_internal_vertex_mask;
+
 /**
  * Checks that all of the shaders have been found
  * and that yourr gl has enough vertex attributes
