@@ -23,6 +23,7 @@ concorde_render_error_codes platform_render_begin(
     concorde_vertex_mask vertex_mask, uint32_t vertex_count) {
   /*Store the vertex components required for the render*/
   gl_internal_vertex_mask = vertex_mask;
+
   /*We always need to malloc enough space for the vertex components*/
   if (vertex_mask & cvm_position) {
     /*Three floats per position vector per vertex*/
