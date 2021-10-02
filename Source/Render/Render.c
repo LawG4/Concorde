@@ -70,6 +70,7 @@ concorde_render_error_codes concorde_immediate_vertex(
 
   /*Start the indefinite length variable list*/
   float z;
+  float w;
   va_list vl;
   va_start(vl, y);
 
@@ -82,11 +83,19 @@ concorde_render_error_codes concorde_immediate_vertex(
       z = va_arg(vl, float);
       err = platform_immediate_render_pos(x, y, z);
       break;
+
+    case cvm_color:
+      /*Get the colour components*/
+      z = va_arg(vl, float);
+      w = va_arg(vl, float);
+      err = platform_immediate_render_col(x, y, z, w);
+
     default:
       /*Invalid vertex mask*/
       err = crec_invalid_vertex_mask;
       break;
   }
+
   /*Reduce the current number of vertices left to count*/
   Concorde_Vert_Remaining--;
 
