@@ -30,8 +30,8 @@ concorde_render_error_codes platform_render_begin(
     concorde_vertex_mask vertex_mask, uint32_t vertex_count);
 
 /**
-* End the platform specfic rendering call
-*/
+ * End the platform specfic rendering call
+ */
 concorde_render_error_codes platform_render_end();
 
 /**
@@ -47,5 +47,16 @@ concorde_render_error_codes platform_render_end();
  */
 concorde_render_error_codes platform_immediate_render_pos(float x, float y,
                                                           float z);
+
+/**
+ * Sets the color component for the next vertex to be drawn
+ * @param R Red
+ * @param G Green
+ * @param B Blue
+ * @param A Alpha
+ * @returns A concorde rendering error code for if the draw was successful
+ */
+concorde_render_error_codes platform_immediate_render_col(float R, float G,
+                                                          float B, float A);
 
 #endif  // !__CONCORDE_INT_RENDER_H__
