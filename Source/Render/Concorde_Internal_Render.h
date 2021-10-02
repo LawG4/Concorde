@@ -16,6 +16,11 @@ extern bool Concorde_Rendering;
 /*How many vertices remain to be drawn before concorde can end*/
 extern uint32_t Concorde_Vert_Remaining;
 
+/*How many components the current render has*/
+extern uint32_t Concorde_vert_comps;
+
+/*The current index for the vertex being rendered*/
+extern uint32_t Concorde_immediate_index;
 /**
  * Pass on the variables for beginning the draw call passed onto the platform
  * dependant rendering system

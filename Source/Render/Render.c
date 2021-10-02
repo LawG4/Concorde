@@ -10,6 +10,8 @@
 /*Define the forward declared render state tracking variables*/
 bool Concorde_Rendering = false;
 uint32_t Concorde_Vert_Remaining = 0;
+uint32_t Concorde_vert_comps = 0;
+uint32_t Concorde_immediate_index = 0;
 
 /*Provide a wrapper for the external rendering functions*/
 
@@ -21,7 +23,17 @@ concorde_render_error_codes concorde_render_begin(
     return crec_already_rendering;
   }
   Concorde_Rendering = true;
-  Concorde_Vert_Remaining = vertex_count;
+
+  /*We need to see how many bits are set in the vertex mask so we can count how
+   * many vertex components remain*/
+  Concorde_vert_comps = 0;
+  concorde_vertex_mask vm = vertex_mask;
+  while (vm) {
+    Concorde_vert_comps += 1 & vm;
+    vm >>= 1;
+  }
+  Concorde_Vert_Remaining = vertex_count * Concorde_vert_comps;
+  Concorde_immediate_index = 0;
 
   /*Call into the platform specific rendering function*/
   concorde_render_error_codes err = platform_render_begin(
@@ -77,5 +89,11 @@ concorde_render_error_codes concorde_immediate_vertex(
   }
   /*Reduce the current number of vertices left to count*/
   Concorde_Vert_Remaining--;
+
+  /*Advance the vertex index if we've added enough components for this vertex*/
+  if ((Concorde_Vert_Remaining % Concorde_vert_comps) == 0) {
+    Concorde_immediate_index++;
+  }
+
   return err;
 }
