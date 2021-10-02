@@ -36,6 +36,12 @@ concorde_render_error_codes platform_render_begin(
 }
 
 concorde_render_error_codes platform_render_end() {
+  /*Once the render has come to an end on desktop we knowe that the vertex array
+   * has been filled, so now we can make the draw call*/
+  if (Concorde_current_mode == crm_immediate) {
+    gl_immediate_render();
+  }
+
   /*Free each of the vertex components allocated this draw call*/
   if (gl_internal_vertex_mask & cvm_position) {
     free(gl_vertex_pos);

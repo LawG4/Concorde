@@ -27,4 +27,9 @@ extern float* gl_vertex_pos;
  * and that yourr gl has enough vertex attributes
  */
 Concorde_GL_Render init_gl_rendering(void);
+
+/**
+* Takes the current state encapsualted in gl_concorde and calls the gl draw
+*/
+void gl_immediate_render();
 #endif  // !__GL_RENDER_H__

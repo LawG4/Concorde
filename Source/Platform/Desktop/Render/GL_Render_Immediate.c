@@ -3,10 +3,39 @@
  */
 #include <stdio.h>
 
+#include "../Desktop.h"
 #include "Concorde.h"
 #include "Concorde_Internal_Render.h"
 #include "Concorde_Render.h"
 #include "GL_Render.h"
+
+GLuint immediate_vao = 0;
+GLuint* immediate_vbo;
+concorde_vertex_mask previous_vm = 0;
+
+void gl_immediate_render() {
+  /*Check that the vertex array has been generated yet*/
+  if (!immediate_vao) {
+    glGenVertexArrays(1, &immediate_vao);
+
+    /*Allocate enough space for the immediare vbos*/
+    const uint32_t supportedAttributeCount = 2;
+    immediate_vbo = malloc(supportedAttributeCount * sizeof(GLuint));
+    if (!immediate_vbo) {
+      return;
+    }
+    glGenBuffers(supportedAttributeCount, immediate_vbo);
+  }
+  glBindVertexArray(immediate_vao);
+
+  /*The immediate renderer needs to reset the enabled attrubtes when they
+   * change*/
+  if (Concorde_current_vm != previous_vm) {
+  }
+
+  /*Save the previous vm before returning*/
+  previous_vm = Concorde_current_vm;
+}
 
 concorde_render_error_codes platform_immediate_render_pos(float x, float y,
                                                           float z) {

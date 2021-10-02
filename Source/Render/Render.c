@@ -62,7 +62,7 @@ concorde_render_error_codes concorde_render_end(void) {
   }
 
   /*Call the platform specific end rendering function*/
-
+  err = platform_render_end();
   /*Exit out*/
   Concorde_Rendering = false;
   Concorde_Vert_Remaining = 0;
