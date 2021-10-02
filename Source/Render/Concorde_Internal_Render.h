@@ -13,6 +13,12 @@
 /*Is concorde currently trying to render?*/
 extern bool Concorde_Rendering;
 
+/*What type of rendering is concorde currently doing*/
+extern concorde_rendering_mode Concorde_current_mode;
+
+/*The vertex mask for the current render*/
+extern concorde_vertex_mask Concorde_current_vm;
+
 /*How many vertices remain to be drawn before concorde can end*/
 extern uint32_t Concorde_Vert_Remaining;
 

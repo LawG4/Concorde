@@ -9,6 +9,8 @@
 
 /*Define the forward declared render state tracking variables*/
 bool Concorde_Rendering = false;
+concorde_rendering_mode Concorde_current_mode = 0;
+concorde_vertex_mask Concorde_current_vm = 0;
 uint32_t Concorde_Vert_Remaining = 0;
 uint32_t Concorde_vert_comps = 0;
 uint32_t Concorde_immediate_index = 0;
@@ -23,6 +25,10 @@ concorde_render_error_codes concorde_render_begin(
     return crec_already_rendering;
   }
   Concorde_Rendering = true;
+
+  /*Keep track of which type of rendering we're doing*/
+  Concorde_current_mode = rendering_mode;
+  Concorde_current_vm = vertex_mask;
 
   /*We need to see how many bits are set in the vertex mask so we can count how
    * many vertex components remain*/
