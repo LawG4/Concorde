@@ -10,7 +10,8 @@
  * Temporarily ignore some compiler warnings
  *   4099  : "No PDB linking object" (This is because GLEW is a release library)
  *   4098  : "LIBCMT cinflicts with use of other libs
- *	26812  : "SDL_bool is unscoped prefer class enum over enum" (No classes in C?)
+ *	26812  : "SDL_bool is unscoped prefer class enum over enum" (No classes
+ *in C?)
  */
 #pragma warning(disable : 4099)
 #pragma warning(disable : 4098)
@@ -35,4 +36,4 @@ extern SDL_Window *window;
  */
 SDL_GLContext sdl_GL;
 
-#endif // !CONCORDE_DESKTOP_HEADER
+#endif  // !CONCORDE_DESKTOP_HEADER

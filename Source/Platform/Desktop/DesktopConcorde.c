@@ -3,6 +3,7 @@
 #include "Concorde.h"
 #include "Concorde_Internal_Inputs.h"
 #include "Desktop.h"
+#include "GL_Render.h"
 
 /*Set Default values for the OpenGL version*/
 #ifndef CONCORDE_GL_MAJOR_V
@@ -70,6 +71,9 @@ uint8_t init_gl(const concorde_init_info *p_init_info) {
     return CONCORDE_VIDEO_INIT_FAILURE;
   }
 
+  /*Try and enable one of the debug extensions please*/
+  gl_enable_callback();
+
   /*Try to use VSync*/
   if (SDL_GL_SetSwapInterval(1) < 0) return CONCORDE_VIDEO_INIT_FAILURE;
 
@@ -88,6 +92,8 @@ uint8_t init_gl(const concorde_init_info *p_init_info) {
   glClearColor(R, G, B, A);
   glClear(GL_COLOR_BUFFER_BIT);
   SDL_GL_SwapWindow(window);
+
+  init_gl_rendering();
 
   if (err = glGetError() != GL_NO_ERROR) {
     printf("GL Error detected : 0x%X4.H", err);
