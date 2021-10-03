@@ -8,7 +8,8 @@ int main() {
   concorde_init(&init);
 
   /*Create one list for each vertex component we'd like to use*/
-  float triangle_vert_pos[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+  float triangle_vert_pos[3][3] = {
+      {-0.5, -0.5f, 0}, {0.5, -0.5, 0}, {0, 0.9, 0}};
   float triangle_vert_col[3][3] = {{0, 0, 1}, {0, 1, 0}, {1, 0, 0}};
 
   /*Create a mask we will use to tell concorde that each vertex is contains only
