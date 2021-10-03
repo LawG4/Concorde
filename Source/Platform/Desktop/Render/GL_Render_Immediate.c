@@ -24,14 +24,37 @@ void gl_immediate_render() {
     if (!immediate_vbo) {
       return;
     }
+    glBindVertexArray(immediate_vao);
+
+    /*Create one vertex buffer object for each vertex component*/
     glGenBuffers(supportedAttributeCount, immediate_vbo);
+
+    /*Position data which is attribute 0 and made up of 3 floats*/
+    glEnableVertexAttribArray(__GL_VC_POS);
+    glBindBuffer(GL_ARRAY_BUFFER, immediate_vbo[__GL_VC_POS]);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    /*Color data which is attribute 1 and made up of 3 floats*/
+    glEnableVertexAttribArray(__GL_VC_COL);
+    glBindBuffer(GL_ARRAY_BUFFER, immediate_vbo[__GL_VC_COL]);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    /*Unbind from the vertex buffers*/
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
   glBindVertexArray(immediate_vao);
 
-  /*The immediate renderer needs to reset the enabled attrubtes when they
-   * change*/
-  if (Concorde_current_vm != previous_vm) {
+  /*Dependending on the currently bound vertex components buffer the data we
+   * have built up*/
+  if (Concorde_current_vm & cvm_position) {
+    glEnableVertexAttribArray(__GL_VC_POS);
+    glBindBuffer(GL_ARRAY_BUFFER, immediate_vbo[__GL_VC_POS]);
+    glBufferData(GL_ARRAY_BUFFER, Concorde_immediate_index * 3 * sizeof(float),
+                 gl_vertex_pos, GL_STATIC_DRAW);
   }
+
+  /*Do the draw call*/
+  glDrawArrays(GL_TRIANGLES, 0, Concorde_immediate_index);
 
   /*Save the previous vm before returning*/
   previous_vm = Concorde_current_vm;
@@ -39,14 +62,13 @@ void gl_immediate_render() {
 
 concorde_render_error_codes platform_immediate_render_pos(float x, float y,
                                                           float z) {
-  printf("Draw vertex pos[%i] :(%f, %f, %f)\n", Concorde_immediate_index, x, y,
-         z);
+  gl_vertex_pos[Concorde_immediate_index * 3 + 0] = x;
+  gl_vertex_pos[Concorde_immediate_index * 3 + 1] = y;
+  gl_vertex_pos[Concorde_immediate_index * 3 + 2] = z;
   return crec_success;
 }
 
 concorde_render_error_codes platform_immediate_render_col(float R, float G,
                                                           float B, float A) {
-  printf("Draw vertex col[%i] :(%f, %f, %f, %f)\n", Concorde_immediate_index, R,
-         G, B, A);
   return crec_success;
 }
