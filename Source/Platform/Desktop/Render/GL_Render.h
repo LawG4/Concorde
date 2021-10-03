@@ -32,4 +32,10 @@ Concorde_GL_Render init_gl_rendering(void);
 * Takes the current state encapsualted in gl_concorde and calls the gl draw
 */
 void gl_immediate_render();
+
+/**
+ * Outputs any GL Errors if there are any
+ * @param check_point Where the gl check originated from
+ */
+void gl_debug_out(const char* check_point);
 #endif  // !__GL_RENDER_H__
