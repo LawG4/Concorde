@@ -22,6 +22,10 @@ extern const char* ShaderNames[1];
  */
 extern float* gl_vertex_pos;
 
+/*Define the vbo attributes index for each cvm*/
+#define __GL_VC_POS (0)
+#define __GL_VC_COL (1)
+
 /**
  * Checks that all of the shaders have been found
  * and that yourr gl has enough vertex attributes
@@ -29,8 +33,8 @@ extern float* gl_vertex_pos;
 Concorde_GL_Render init_gl_rendering(void);
 
 /**
-* Takes the current state encapsualted in gl_concorde and calls the gl draw
-*/
+ * Takes the current state encapsualted in gl_concorde and calls the gl draw
+ */
 void gl_immediate_render();
 
 /**
@@ -38,4 +42,9 @@ void gl_immediate_render();
  * @param check_point Where the gl check originated from
  */
 void gl_debug_out(const char* check_point);
+
+/**
+ * Try enable debug callback on opengl
+ */
+void gl_enable_callback();
 #endif  // !__GL_RENDER_H__
