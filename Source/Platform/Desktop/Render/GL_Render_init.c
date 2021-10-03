@@ -1,12 +1,16 @@
 /**
  * Set up the GL Rendering
  */
+#include <stdio.h>
 #include <stdlib.h>
 
+#include "../Desktop.h"
 #include "GL_Render.h"
 
 const uint8_t shaderCount = 1;
 const char* ShaderNames[1] = {"Test shader.glsl"};
+
+GLuint renderProgram = 0;
 
 /*Define the forward declared vertex component arrays */
 float* gl_vertex_pos = NULL;
@@ -14,7 +18,42 @@ float* gl_vertex_pos = NULL;
 /*Define the forward declared vertex componet mask we're using this draw*/
 concorde_vertex_mask gl_internal_vertex_mask = 0;
 
-Concorde_GL_Render init_gl_rendering(void) { return GL_Success; }
+Concorde_GL_Render init_gl_rendering(void) {
+  /*Create some basic shaders*/
+  const char* vertexShaderSource =
+      "#version 330 core\n"
+      "layout (location = 0) in vec3 aPos;\n"
+      "void main()\n"
+      "{\n"
+      "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+      "}\0";
+  const char* fragmentShaderSource =
+      "#version 330 core\n"
+      "out vec4 FragColor;\n"
+      "void main()\n"
+      "{\n"
+      "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+      "}\0";
+
+  /*Vertex program*/
+  GLuint vertexProgram = glCreateShader(GL_VERTEX_SHADER);
+  glShaderSource(vertexProgram, 1, &vertexShaderSource, NULL);
+  glCompileShader(vertexProgram);
+
+  /*Fragment program*/
+  GLuint fragProgram = glCreateShader(GL_FRAGMENT_SHADER);
+  glShaderSource(fragProgram, 1, &fragmentShaderSource, NULL);
+  glCompileShader(fragProgram);
+
+  renderProgram = glCreateProgram();
+
+  glAttachShader(renderProgram, vertexProgram);
+  glAttachShader(renderProgram, fragProgram);
+  glLinkProgram(renderProgram);
+  glUseProgram(renderProgram);
+
+  return 0;
+}
 
 /*When we init a render we always need to allocate enough memory from the
  * vertices*/
