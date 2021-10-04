@@ -14,6 +14,27 @@ function(add_concorde_executable concorde_target concorde_sources)
 	if(NOT "${CACHE_PLATFORM}" STREQUAL "PLATFORM_WII")
 		message("Adding Desktop target ${concorde_target}")
 		add_executable(${concorde_target} "${concorde_sources}")
+
+		# Add a custom target to copy the glsl shaders over to the executable
+		# this is so they can be read in at runtime
+		# See Concorde/Source/Platform/Desktop/Render/CMakeLists.txt
+		if(GLSL_SHADERS_CACHE)
+			# Add a custom command for each shader
+			foreach(SHADER ${GLSL_SHADERS_CACHE})
+				get_filename_component(SHADER_OUT ${SHADER} NAME)
+				message("${SHADER_OUT}")
+				target_sources(${concorde_target} PRIVATE ${SHADER_OUT})
+				add_custom_command(POST_BUILD
+					COMMAND "${CMAKE_COMMAND}" -E copy
+					"${SHADER}"
+					"${CMAKE_CURRENT_BINARY_DIR}/${SHADER_OUT}"
+					DEPENDS "${SHADER}"
+					OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${SHADER_OUT}"
+					COMMENT "Copying shader ${SHADER_OUT} to ${concorde_target}")
+			endforeach()
+		else()
+			message(FATAL_ERROR "Was not able to cache the glsl shaders?")
+		endif()
 	
 	# We're targetting the Wii
 	else()
