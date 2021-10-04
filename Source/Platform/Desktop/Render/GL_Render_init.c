@@ -91,7 +91,7 @@ Concorde_GL_Render init_gl_rendering(void) {
   glAttachShader(renderProgram, frag);
   glLinkProgram(renderProgram);
 
-  glGetShaderiv(renderProgram, GL_LINK_STATUS, &gl_success);
+  glGetProgramiv(renderProgram, GL_LINK_STATUS, &gl_success);
   if (!gl_success) {
     printf("Error Linking the shaders!\n");
     return GL_Shader_comp_fail;
