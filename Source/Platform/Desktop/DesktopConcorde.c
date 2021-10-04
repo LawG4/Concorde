@@ -96,7 +96,7 @@ uint8_t init_gl(const concorde_init_info *p_init_info) {
   init_gl_rendering();
 
   if (err = glGetError() != GL_NO_ERROR) {
-    printf("GL Error detected : 0x%X4.H", err);
+    printf("GL Error detected : 0x%x \n", err);
     return CONCORDE_VIDEO_INIT_FAILURE;
   }
   return CONCORDE_SUCCESS;
@@ -115,7 +115,7 @@ uint8_t concorde_init(const concorde_init_info *p_init_info) {
 
   conc_err = init_gl(p_init_info);
   if (conc_err != CONCORDE_SUCCESS) {
-    printf("Concorde encountered an error while starting OpenGL");
+    printf("Concorde encountered an error while starting OpenGL\n");
     return conc_err;
   }
 
