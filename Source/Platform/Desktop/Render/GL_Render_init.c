@@ -24,7 +24,7 @@ concorde_vertex_mask gl_internal_vertex_mask = 0;
  * @param shaderName The file name of the shader
  * @return The text contained in that shader
  */
-const char* readShaderSource(const char* shaderName) {
+char* readShaderSource(const char* shaderName) {
   FILE* fp = fopen(shaderName, "r");
   if (!fp) {
     printf("Could not open shader : %s\n", shaderName);
@@ -52,8 +52,8 @@ const char* readShaderSource(const char* shaderName) {
 
 Concorde_GL_Render init_gl_rendering(void) {
   /*Firstly read in the shader source codes*/
-  const char* vertSource = readShaderSource(Vertex_Shader_Name);
-  const char* fragSource = readShaderSource(Fragment_Shader_Name);
+  char* vertSource = readShaderSource(Vertex_Shader_Name);
+  char* fragSource = readShaderSource(Fragment_Shader_Name);
 
   /*Ensure we retrieved some data*/
   if (!vertSource || !fragSource) {
