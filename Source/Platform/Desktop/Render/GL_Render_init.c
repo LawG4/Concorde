@@ -50,31 +50,42 @@ char* readShaderSource(const char* shaderName) {
   return buffer;
 }
 
-Concorde_GL_Render init_gl_rendering(void) {
-  /*Firstly read in the shader source codes*/
+/**
+ * Generates a shader program consisting of just a vertex and fragment shader
+ * @param vertex_name The local path from the executable to the vertex shader
+ * source
+ * @param frag_name The local path from the executable to the fragment shader
+ * source
+ * @returns A name used to identify the shader program within GL
+ */
+GLuint init_shader_program(const char* vertex_name, const char* frag_name) {
+  /*Using the file path read in the shader sources*/
   char* vertSource = readShaderSource(Vertex_Shader_Name);
   char* fragSource = readShaderSource(Fragment_Shader_Name);
 
-  /*Ensure we retrieved some data*/
+  /*Ensure that we did not recieve null pointers, this means we definitley read
+   * some kind of shader source*/
   if (!vertSource || !fragSource) {
     printf("Error loading in the shader source code\n");
     return GL_Shader_Not_Found;
   }
 
-  /*Compile the vertex source code into a shader*/
+  /*Create a variable to track success status*/
+  GLint gl_success;
+
+  /*Compile the vertex shader*/
   GLuint vert = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vert, 1, &vertSource, NULL);
   glCompileShader(vert);
 
-  /*Ensure the compilation was successful*/
-  GLint gl_success;
+  /*Ensure shader comp was successful*/
   glGetShaderiv(vert, GL_COMPILE_STATUS, &gl_success);
   if (!gl_success) {
     printf("Error compiling the vertex shader!\n");
     return GL_Shader_comp_fail;
   }
 
-  /*Compile the fragment source code shader*/
+  /*Compile the fragment shader and check for errors*/
   GLuint frag = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(frag, 1, &fragSource, NULL);
   glCompileShader(frag);
@@ -86,22 +97,36 @@ Concorde_GL_Render init_gl_rendering(void) {
   }
 
   /*Link the two shaders together to create a program*/
-  renderProgram = glCreateProgram();
-  glAttachShader(renderProgram, vert);
-  glAttachShader(renderProgram, frag);
-  glLinkProgram(renderProgram);
+  GLuint shaderProgram = glCreateProgram();
+  glAttachShader(shaderProgram, vert);
+  glAttachShader(shaderProgram, frag);
+  glLinkProgram(shaderProgram);
 
-  glGetProgramiv(renderProgram, GL_LINK_STATUS, &gl_success);
+  /*Check for linking success state*/
+  glGetProgramiv(shaderProgram, GL_LINK_STATUS, &gl_success);
   if (!gl_success) {
     printf("Error Linking the shaders!\n");
     return GL_Shader_comp_fail;
   }
 
-  glUseProgram(renderProgram);
+  /*Free the arrays used to store the shader source code*/
+  if (vertSource) {
+    free(vertSource);
+  }
+  if (fragSource) {
+    free(fragSource);
+  }
 
-  /*Free our char buffers*/
-  free(vertSource);
-  free(fragSource);
+  /*Finally return the shader program*/
+  return shaderProgram;
+}
+
+Concorde_GL_Render init_gl_rendering(void) {
+  /*init the immediate render program which is currently our only one*/
+  renderProgram = init_shader_program(Vertex_Shader_Name, Fragment_Shader_Name);
+
+  /*Set GL to use the immediate render program*/
+  glUseProgram(renderProgram);
 
   return 0;
 }
