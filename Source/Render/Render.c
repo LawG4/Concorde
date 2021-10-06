@@ -86,14 +86,14 @@ concorde_render_error_codes concorde_immediate_vertex(
   switch (vertex_component) {
     case cvm_position:
       /*Use variable arguments to get the third component*/
-      z = va_arg(vl, float);
+      z = (float)va_arg(vl, double);
       err = platform_immediate_render_pos(x, y, z);
       break;
 
     case cvm_color:
       /*Get the colour components*/
-      z = va_arg(vl, float);
-      w = va_arg(vl, float);
+      z = (float)va_arg(vl, double);
+      w = (float)va_arg(vl, double);
       err = platform_immediate_render_col(x, y, z, w);
 
     default:
