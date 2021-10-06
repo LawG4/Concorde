@@ -51,6 +51,27 @@ char* readShaderSource(const char* shaderName) {
 }
 
 /**
+ * If we detect an error in the shader comp, get the info log
+ */
+void print_shader_log(GLuint shaderID) {
+  GLint logLength = 0;
+  glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &logLength);
+
+  if (logLength) {
+    char* log = malloc(logLength * sizeof(char));
+
+    if (!log) {
+      printf("Couldn't allocate log space for %i chars\n", logLength);
+      return;
+    }
+    glGetShaderInfoLog(shaderID, logLength, &logLength, log);
+    printf("Shader info log:\n*******\n%s\n*******\n", log);
+  } else {
+    printf("Couldn't fetch log length\n");
+  }
+}
+
+/**
  * Generates a shader program consisting of just a vertex and fragment shader
  * @param vertex_name The local path from the executable to the vertex shader
  * source
@@ -82,6 +103,7 @@ GLuint init_shader_program(const char* vertex_name, const char* frag_name) {
   glGetShaderiv(vert, GL_COMPILE_STATUS, &gl_success);
   if (!gl_success) {
     printf("Error compiling the vertex shader!\n");
+    print_shader_log(vert);
     return GL_Shader_comp_fail;
   }
 
@@ -93,6 +115,7 @@ GLuint init_shader_program(const char* vertex_name, const char* frag_name) {
   glGetShaderiv(frag, GL_COMPILE_STATUS, &gl_success);
   if (!gl_success) {
     printf("Error compiling the fragment shader!\n");
+    print_shader_log(frag);
     return GL_Shader_comp_fail;
   }
 
