@@ -15,6 +15,7 @@ GLuint renderProgram = 0;
 
 /*Define the forward declared vertex component arrays */
 float* gl_vertex_pos = NULL;
+float* gl_vertex_color = NULL;
 
 /*Define the forward declared vertex componet mask we're using this draw*/
 concorde_vertex_mask gl_internal_vertex_mask = 0;
@@ -163,10 +164,19 @@ concorde_render_error_codes platform_render_begin(
   gl_internal_vertex_mask = vertex_mask;
 
   /*We always need to malloc enough space for the vertex components*/
+  /*Has the user enabled positions*/
   if (vertex_mask & cvm_position) {
     /*Three floats per position vector per vertex*/
     gl_vertex_pos = malloc(3 * vertex_count * sizeof(float));
     if (!gl_vertex_pos) {
+      return crec_vertex_alloc_failed;
+    }
+  }
+
+  /*Has the user enabled color*/
+  if (vertex_mask & cvm_color) {
+    gl_vertex_color = malloc(3 * vertex_count * sizeof(float));
+    if (!gl_vertex_color) {
       return crec_vertex_alloc_failed;
     }
   }
@@ -181,9 +191,16 @@ concorde_render_error_codes platform_render_end() {
   }
 
   /*Free each of the vertex components allocated this draw call*/
+  /*Free positions*/
   if (gl_internal_vertex_mask & cvm_position) {
     free(gl_vertex_pos);
     gl_vertex_pos = NULL;
+  }
+
+  /*Free colors*/
+  if (gl_internal_vertex_mask & cvm_color) {
+    free(gl_vertex_color);
+    gl_vertex_color = NULL;
   }
 
   /*Reset the internal vertex component mask*/

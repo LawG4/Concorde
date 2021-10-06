@@ -26,6 +26,11 @@ extern const char* ShaderNames[1];
  */
 extern float* gl_vertex_pos;
 
+/**
+ * Pointer that represents the list of colours each vertex we're rendering has
+ */
+extern float* gl_vertex_color;
+
 /*Define the vbo attributes index for each cvm*/
 #define __GL_VC_POS (0)
 #define __GL_VC_COL (1)

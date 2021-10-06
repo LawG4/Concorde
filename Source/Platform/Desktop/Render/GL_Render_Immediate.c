@@ -46,11 +46,19 @@ void gl_immediate_render() {
 
   /*Dependending on the currently bound vertex components buffer the data we
    * have built up*/
+  /*Enabled position component*/
   if (Concorde_current_vm & cvm_position) {
     glEnableVertexAttribArray(__GL_VC_POS);
     glBindBuffer(GL_ARRAY_BUFFER, immediate_vbo[__GL_VC_POS]);
     glBufferData(GL_ARRAY_BUFFER, Concorde_immediate_index * 3 * sizeof(float),
                  gl_vertex_pos, GL_STATIC_DRAW);
+  }
+  /*Enabled color component*/
+  if (Concorde_current_vm & cvm_color) {
+    glEnableVertexAttribArray(__GL_VC_POS);
+    glBindBuffer(GL_ARRAY_BUFFER, immediate_vbo[__GL_VC_COL]);
+    glBufferData(GL_ARRAY_BUFFER, Concorde_immediate_index * 3 * sizeof(float),
+                 gl_vertex_color, GL_STATIC_DRAW);
   }
 
   /*Do the draw call*/
@@ -70,5 +78,8 @@ concorde_render_error_codes platform_immediate_render_pos(float x, float y,
 
 concorde_render_error_codes platform_immediate_render_col(float R, float G,
                                                           float B, float A) {
+  gl_vertex_color[Concorde_immediate_index * 3 + 0] = R;
+  gl_vertex_color[Concorde_immediate_index * 3 + 1] = G;
+  gl_vertex_color[Concorde_immediate_index * 3 + 2] = B;
   return crec_success;
 }
