@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.13.0 FATAL_ERROR)
+
 # Link to the Wii libraries
 target_link_libraries(Concorde wiiuse bte ogc m)
 
@@ -11,3 +13,6 @@ set(HEADERS
 	Wii.h)
 
 target_sources(Concorde PRIVATE ${SOURCE} ${HEADERS})
+
+# Add the render subdirectory
+add_subdirectory(Render)
