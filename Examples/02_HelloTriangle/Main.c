@@ -5,12 +5,13 @@
 int main() {
   /*Initialise concorde with default values*/
   concorde_init_info init = default_init_info;
+  init.fb_clear_color = concorde_pack_colors(6, 9, 48, 255);
   concorde_init(&init);
 
   /*Create one list for each vertex component we'd like to use*/
   float triangle_vert_pos[3][3] = {
-      {-0.5, -0.5f, 0}, {0.5, -0.5, 0}, {0, 0.9, 0}};
-  float triangle_vert_col[3][3] = {{0, 0, 1}, {0, 1, 0}, {1, 0, 0}};
+      {-0.5f, -0.5f, 0.0f}, {0.5f, -0.5f, 0.0f}, {0.0f, 0.9f, 0.0f}};
+  float triangle_vert_col[3][3] = {{1.0, 0, 0}, {0, 1.0, 0}, {0, 0, 1.0}};
 
   /*Create a mask we will use to tell concorde that each vertex is contains only
    * position and colour data*/
