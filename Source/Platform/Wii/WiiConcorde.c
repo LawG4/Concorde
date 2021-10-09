@@ -1,5 +1,6 @@
 #include "Concorde.h"
 #include "Wii.h"
+#include "GX_Render.h"
 
 #include <gccore.h>
 #include <wiiuse/wpad.h>
@@ -82,6 +83,13 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     concorde_swap_buffers();
     concorde_swap_buffers();
     VIDEO_SetBlack(FALSE);
+
+    /*Start the renderer*/
+    if(init_gx_renderer() != crec_success)
+    {
+        printf("Failed to init the concorde gx renderer!\n");
+        return CONCORDE_VIDEO_INIT_FAILURE;
+    }
 
     return CONCORDE_SUCCESS;
 }
