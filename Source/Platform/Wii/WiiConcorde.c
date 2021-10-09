@@ -79,6 +79,37 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     .a = clearColor & 0xFF};
     GX_SetCopyClear(gxClearColor, 0x00FFFFFF);
 
+    /*Tell the GP about the dimensions of the internal framebuffer, including depth buffer*/
+    GX_SetViewport(0, 0, videoMode->fbWidth, videoMode->efbHeight, 0, 1);
+
+    /*Get the scale values to go from internal and external framebuffers*/
+    float yscale = GX_GetYScaleFactor(videoMode->efbHeight, videoMode->xfbHeight);
+    
+    /*Tell GX about how we're copying the internal/embedded framebuffer to the external one
+    This happens when the frame is finished being rendered to the internal/embedded fb and 
+    we want to copy the result to an external fb in main memory so it can be displayed
+    in order of the following calls we are:
+    *    Setting the horizontal scale value between internal and external
+    *    Tell the copy operation the internal framebuffer dimensions
+    *    Tell the copy operarion the external fb dimensions *
+    *    Tell the copy operation the paramaters for converting subpixels to pixels, like
+    defining a sampler in Vulkan
+    *    Are we using field rendering, no idea? I yoinked this one from the examples
+    *    Set any gamma correction, so maybe efb is linear colour space and efb isnt?*/
+    float externalFBHeight = GX_SetDispCopyYScale(yscale);
+    GX_SetDispCopySrc(0, 0, videoMode->fbWidth, videoMode->efbHeight);
+    GX_SetDispCopyDst(videoMode->fbWidth, externalFBHeight);
+    GX_SetCopyFilter(videoMode->aa, videoMode->sample_pattern, GX_TRUE, videoMode->vfilter);
+    GX_SetFieldMode(videoMode->field_rendering, (videoMode->viHeight == 2*videoMode->xfbHeight) ? GX_ENABLE: GX_DISABLE);
+    GX_SetDispCopyGamma(GX_GM_1_0);
+
+    /*Tell GX how to handle vertex culling, scissor snips verticies after being transfrmed 
+    into screen space, to reduce texturing unneccacary vertices.
+    *    We can also tell when to kill verticies so that their insides aren't textured, but 
+    since we're still in very early debug, default to no vertex culling*/
+    GX_SetScissor(0, 0, videoMode->fbWidth, videoMode->efbHeight);
+    GX_SetCullMode(GX_FALSE);
+
     /*Run through framebuffers before turning the screen on as GX initialises as green*/
     concorde_swap_buffers();
     concorde_swap_buffers();
@@ -109,6 +140,9 @@ uint8_t concorde_init(const concorde_init_info *p_init_info)
 
 void concorde_swap_buffers(void)
 {
+    /*The GX draw has been complete*/
+    GX_DrawDone();
+
     /*Copy the internal framebuffer (The one in the GPUs ram) into our external framebuffer
     So we can send the contents of that framebuffer to the screen
     Also clear the internal framebuffer while we're at it so that it's fresh*/
