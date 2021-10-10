@@ -31,9 +31,9 @@ extern uint32_t Concorde_immediate_index;
  * Pass on the variables for beginning the draw call passed onto the platform
  * dependant rendering system
  */
-concorde_render_error_codes platform_render_begin(
-    concorde_rendering_mode rendering_mode, concorde_primative primative,
-    concorde_vertex_mask vertex_mask, uint32_t vertex_count);
+concorde_render_error_codes platform_render_begin(concorde_rendering_mode rendering_mode,
+                                                  concorde_primative primative,
+                                                  concorde_vertex_mask vertex_mask, uint32_t vertex_count);
 
 /**
  * End the platform specfic rendering call
@@ -51,8 +51,7 @@ concorde_render_error_codes platform_render_end();
  * @param z The z position
  * @returns A concorde rendering error code for if the draw was successful
  */
-concorde_render_error_codes platform_immediate_render_pos(float x, float y,
-                                                          float z);
+concorde_render_error_codes platform_immediate_render_pos(float x, float y, float z);
 
 /**
  * Sets the color component for the next vertex to be drawn
@@ -62,7 +61,6 @@ concorde_render_error_codes platform_immediate_render_pos(float x, float y,
  * @param A Alpha
  * @returns A concorde rendering error code for if the draw was successful
  */
-concorde_render_error_codes platform_immediate_render_col(float R, float G,
-                                                          float B, float A);
+concorde_render_error_codes platform_immediate_render_col(float R, float G, float B, float A);
 
 #endif  // !__CONCORDE_INT_RENDER_H__

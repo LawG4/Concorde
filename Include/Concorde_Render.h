@@ -14,31 +14,27 @@
 
 /*Define the different styles of rendering concorde will let a user do*/
 typedef enum {
-  /*Submit each vertex point component one at a time in order*/
-  crm_immediate,
-  /*Submit a buffer of ordered vertices*/
-  crm_buffered,
-  /*Submit a buffer of vertices access by the order described in the index
-     buffer*/
-  crm_indexed
+    /*Submit each vertex point component one at a time in order*/
+    crm_immediate,
+    /*Submit a buffer of ordered vertices*/
+    crm_buffered,
+    /*Submit a buffer of vertices access by the order described in the index
+       buffer*/
+    crm_indexed
 } concorde_rendering_mode;
 
 /*Define a list of all the primatives concorde will let you render*/
 typedef enum { cp_triangle = 3, cp_quad = 4 } concorde_primative;
 
 /*Define flags that tell concorde which properties the users vertices have*/
-typedef enum {
-  cvm_position = 1,
-  cvm_color = 1 << 1,
-  cvm_tex = 1 << 2
-} concorde_vertex_mask;
+typedef enum { cvm_position = 1, cvm_color = 1 << 1, cvm_tex = 1 << 2 } concorde_vertex_mask;
 
 typedef enum {
-  crec_success = 0,
-  crec_already_rendering,
-  crec_not_finished_rendering,
-  crec_invalid_vertex_mask,
-  crec_vertex_alloc_failed
+    crec_success = 0,
+    crec_already_rendering,
+    crec_not_finished_rendering,
+    crec_invalid_vertex_mask,
+    crec_vertex_alloc_failed
 
 } concorde_render_error_codes;
 
@@ -52,9 +48,9 @@ typedef enum {
  * @param vertex_count How many vertices the user is submitting
  * @returns a render error code or success
  */
-concorde_render_error_codes concorde_render_begin(
-    concorde_rendering_mode rendering_mode, concorde_primative primative,
-    concorde_vertex_mask vertex_mask, uint32_t vertex_count);
+concorde_render_error_codes concorde_render_begin(concorde_rendering_mode rendering_mode,
+                                                  concorde_primative primative,
+                                                  concorde_vertex_mask vertex_mask, uint32_t vertex_count);
 
 /**
  * Ends the concorde draw call, validates the user has submitted enough vertices
@@ -72,7 +68,7 @@ concorde_render_error_codes concorde_render_end(void);
  * @param y second subsection of the vertex component
  * @param ... Any remaining sections of the vertex component
  */
-concorde_render_error_codes concorde_immediate_vertex(
-    concorde_vertex_mask vertex_component, float x, float y, ...);
+concorde_render_error_codes concorde_immediate_vertex(concorde_vertex_mask vertex_component, float x, float y,
+                                                      ...);
 
 #endif  // !__CONCORDE_RENDER_H__

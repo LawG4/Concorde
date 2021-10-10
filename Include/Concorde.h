@@ -5,10 +5,10 @@
 #ifndef CONCORDE_MAIN_HEADER
 #define CONCORDE_MAIN_HEADER
 
-#include "Concorde_Input_System.h"
-#include "Concorde_Render.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include "Concorde_Input_System.h"
+#include "Concorde_Render.h"
 
 /**
  * Return states from Concorde functions
@@ -24,8 +24,7 @@
  * @param fb_clear_color The clear color for the frame 8 bits for each channel RGBA
  * @param enable_msaa Should the implementation use anti aliasina
  */
-typedef struct concorde_init_info
-{
+typedef struct concorde_init_info {
     char *app_name;
     uint32_t fb_width;
     uint32_t fb_height;
@@ -46,8 +45,8 @@ extern concorde_init_info default_init_info;
 uint8_t concorde_init(const concorde_init_info *p_init_info);
 
 /**
- * Tells the user if the window has been set to close. For example, pressing x on the window. The user must scan inputs
- * to update this value. The user still maintains control of when they want the program to close
+ * Tells the user if the window has been set to close. For example, pressing x on the window. The user must
+ * scan inputs to update this value. The user still maintains control of when they want the program to close
  * @return 0 if the window should close, 1 if concorde hasn't detected an exit command
  */
 uint8_t concorde_should_close(void);

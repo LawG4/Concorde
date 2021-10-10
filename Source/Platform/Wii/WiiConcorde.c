@@ -1,13 +1,15 @@
 #include "Concorde.h"
-#include "Wii.h"
 #include "GX_Render.h"
+#include "Wii.h"
+
 
 #include <gccore.h>
 #include <wiiuse/wpad.h>
 
-#include <stdio.h>
 #include <malloc.h>
+#include <stdio.h>
 #include <string.h>
+
 
 /*Define the forward declared variables in the wii header*/
 void *gxCommandBuffer = NULL;
@@ -16,8 +18,8 @@ void *framebuffers[2] = {NULL, NULL};
 uint8_t fbIndex = 0;
 
 /**
- * Initialises the video system on the wii 
- */ 
+ * Initialises the video system on the wii
+ */
 uint8_t initVideo()
 {
     /*Initialise the video system*/
@@ -49,8 +51,7 @@ uint8_t initVideo()
 
     /*Wait for the next vblank period which tells us video set up is done*/
     VIDEO_WaitVSync();
-    if(videoMode->viTVMode & VI_NON_INTERLACE) 
-        VIDEO_WaitVSync();
+    if (videoMode->viTVMode & VI_NON_INTERLACE) VIDEO_WaitVSync();
 
     /*We can perform a neat trick to swap the index of the framebuffer index
     And we need to swap the buffers because we just waited for Vsync*/
@@ -61,12 +62,11 @@ uint8_t initVideo()
 
 /**
  * Initilises the GPU on the wii
- */ 
+ */
 uint8_t initGX(const concorde_init_info *p_init_info)
 {
     /*Ensure that config pointer is valid*/
-    if(!p_init_info)
-        return CONCORDE_VIDEO_INIT_FAILURE;
+    if (!p_init_info) return CONCORDE_VIDEO_INIT_FAILURE;
 
     /*Init the GPU to use our command buffer*/
     GX_Init(gxCommandBuffer, GX_COMMAND_BUFFER_SIZE);
@@ -74,9 +74,9 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     /*Pass the clear colour onto GX*/
     uint32_t clearColor = p_init_info->fb_clear_color;
     GXColor gxClearColor = {.r = (clearColor >> 24) & 0xFF,
-    .g = (clearColor >> 16) & 0xFF,
-    .b = (clearColor >> 8) & 0xFF,
-    .a = clearColor & 0xFF};
+                            .g = (clearColor >> 16) & 0xFF,
+                            .b = (clearColor >> 8) & 0xFF,
+                            .a = clearColor & 0xFF};
     GX_SetCopyClear(gxClearColor, 0x00FFFFFF);
 
     /*Tell the GP about the dimensions of the internal framebuffer, including depth buffer*/
@@ -84,9 +84,9 @@ uint8_t initGX(const concorde_init_info *p_init_info)
 
     /*Get the scale values to go from internal and external framebuffers*/
     float yscale = GX_GetYScaleFactor(videoMode->efbHeight, videoMode->xfbHeight);
-    
+
     /*Tell GX about how we're copying the internal/embedded framebuffer to the external one
-    This happens when the frame is finished being rendered to the internal/embedded fb and 
+    This happens when the frame is finished being rendered to the internal/embedded fb and
     we want to copy the result to an external fb in main memory so it can be displayed
     in order of the following calls we are:
     *    Setting the horizontal scale value between internal and external
@@ -100,19 +100,19 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     GX_SetDispCopySrc(0, 0, videoMode->fbWidth, videoMode->efbHeight);
     GX_SetDispCopyDst(videoMode->fbWidth, externalFBHeight);
     GX_SetCopyFilter(videoMode->aa, videoMode->sample_pattern, GX_TRUE, videoMode->vfilter);
-    GX_SetFieldMode(videoMode->field_rendering, (videoMode->viHeight == 2*videoMode->xfbHeight) ? GX_ENABLE: GX_DISABLE);
+    GX_SetFieldMode(videoMode->field_rendering,
+                    (videoMode->viHeight == 2 * videoMode->xfbHeight) ? GX_ENABLE : GX_DISABLE);
     GX_SetDispCopyGamma(GX_GM_1_0);
 
-    /*Tell GX how to handle vertex culling, scissor snips verticies after being transfrmed 
+    /*Tell GX how to handle vertex culling, scissor snips verticies after being transfrmed
     into screen space, to reduce texturing unneccacary vertices.
-    *    We can also tell when to kill verticies so that their insides aren't textured, but 
+    *    We can also tell when to kill verticies so that their insides aren't textured, but
     since we're still in very early debug, default to no vertex culling*/
     GX_SetScissor(0, 0, videoMode->fbWidth, videoMode->efbHeight);
     GX_SetCullMode(GX_FALSE);
 
     /*Start the renderer*/
-    if(init_gx_renderer() != crec_success)
-    {
+    if (init_gx_renderer() != crec_success) {
         printf("Failed to init the concorde gx renderer!\n");
         return CONCORDE_VIDEO_INIT_FAILURE;
     }
@@ -122,20 +122,16 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     concorde_swap_buffers();
     VIDEO_SetBlack(FALSE);
 
-    
-
     return CONCORDE_SUCCESS;
 }
 
 uint8_t concorde_init(const concorde_init_info *p_init_info)
 {
     /*initialise the video on the wii*/
-    if(initVideo() != CONCORDE_SUCCESS)
-        return CONCORDE_VIDEO_INIT_FAILURE;
+    if (initVideo() != CONCORDE_SUCCESS) return CONCORDE_VIDEO_INIT_FAILURE;
 
     /*Initialise the GPU on the wii*/
-    if(initGX(p_init_info) != CONCORDE_SUCCESS)
-        return CONCORDE_VIDEO_INIT_FAILURE;
+    if (initGX(p_init_info) != CONCORDE_SUCCESS) return CONCORDE_VIDEO_INIT_FAILURE;
 
     return CONCORDE_SUCCESS;
 }

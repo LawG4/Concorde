@@ -13,10 +13,7 @@ uint8_t should_window_close = 0;
  * Declare some of the very basic concorde functions
  */
 
-uint8_t concorde_should_close(void)
-{
-    return should_window_close;
-}
+uint8_t concorde_should_close(void) { return should_window_close; }
 
 uint32_t concorde_pack_colors(uint8_t R, uint32_t G, uint32_t B, uint32_t A)
 {

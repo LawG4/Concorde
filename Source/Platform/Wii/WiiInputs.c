@@ -1,11 +1,12 @@
 /**
  * Abstracts the inputs for wii inputs.
- */ 
+ */
 #include "Concorde.h"
 #include "Concorde_Internal_Inputs.h"
 
-#include <wiiuse/wpad.h>
 #include <ogc/pad.h>
+#include <wiiuse/wpad.h>
+
 
 #include <stdio.h>
 
@@ -20,8 +21,7 @@ void concorde_scan_inputs(void)
 
     buttons_downed_bit_mask |= CONCORDE_KEY_NONE;
     /*Unfortunatley we can't do switch statement, have to do if-else*/
-    if(wii_buttonDown & WPAD_BUTTON_HOME || gc_buttonDown & PAD_BUTTON_START)
-    {
+    if (wii_buttonDown & WPAD_BUTTON_HOME || gc_buttonDown & PAD_BUTTON_START) {
         buttons_downed_bit_mask |= CONCORDE_KEY_HOME;
     }
 

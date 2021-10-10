@@ -15,4 +15,4 @@ extern uint32_t buttons_down_bit_mask;
 /*Buttons that have been released in the most recent input scan*/
 extern uint32_t buttons_upped_bit_mask;
 
-#endif // !__CONCORDE_INT_INPUTS_H__
+#endif  // !__CONCORDE_INT_INPUTS_H__

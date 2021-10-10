@@ -8,4 +8,4 @@
 #include "Concorde.h"
 
 extern uint8_t should_window_close;
-#endif // !CONCORDE_INTERNAL_H
+#endif  // !CONCORDE_INTERNAL_H
