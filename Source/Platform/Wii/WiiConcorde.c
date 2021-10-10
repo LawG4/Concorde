@@ -110,17 +110,19 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     GX_SetScissor(0, 0, videoMode->fbWidth, videoMode->efbHeight);
     GX_SetCullMode(GX_FALSE);
 
-    /*Run through framebuffers before turning the screen on as GX initialises as green*/
-    concorde_swap_buffers();
-    concorde_swap_buffers();
-    VIDEO_SetBlack(FALSE);
-
     /*Start the renderer*/
     if(init_gx_renderer() != crec_success)
     {
         printf("Failed to init the concorde gx renderer!\n");
         return CONCORDE_VIDEO_INIT_FAILURE;
     }
+
+    /*Run through framebuffers before turning the screen on as GX initialises as green*/
+    concorde_swap_buffers();
+    concorde_swap_buffers();
+    VIDEO_SetBlack(FALSE);
+
+    
 
     return CONCORDE_SUCCESS;
 }

@@ -2,6 +2,7 @@
  * Initiates the renders and defines any forward declared internal 
  * render variables devlared in the gx rendering header
 */
+#include "Wii.h"
 #include "Concorde_Internal_Render.h"
 #include "GX_Render.h"
 
