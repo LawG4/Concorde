@@ -5,7 +5,7 @@
  * Define the forward declared variables inside the external concorde headers
  */
 
-concorde_init_info default_init_info = {"Concorde", 640, 480, 0xFF00FFFF, true};
+concorde_init_info default_init_info = {"Concorde", 778, 480, 0xFF00FFFF, true};
 
 uint8_t should_window_close = 0;
 
