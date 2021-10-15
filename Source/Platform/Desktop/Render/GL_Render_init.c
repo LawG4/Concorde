@@ -92,7 +92,7 @@ GLuint init_shader_program(const char* vertex_name, const char* frag_name)
      * some kind of shader source*/
     if (!vertSource || !fragSource) {
         printf("Error loading in the shader source code\n");
-        return GL_Shader_Not_Found;
+        return cec_shader_not_found;
     }
 
     /*Create a variable to track success status*/
@@ -108,7 +108,7 @@ GLuint init_shader_program(const char* vertex_name, const char* frag_name)
     if (!gl_success) {
         printf("Error compiling the vertex shader!\n");
         print_shader_log(vert);
-        return GL_Shader_comp_fail;
+        return cec_shader_comp_fail;
     }
 
     /*Compile the fragment shader and check for errors*/
@@ -120,7 +120,7 @@ GLuint init_shader_program(const char* vertex_name, const char* frag_name)
     if (!gl_success) {
         printf("Error compiling the fragment shader!\n");
         print_shader_log(frag);
-        return GL_Shader_comp_fail;
+        return cec_shader_comp_fail;
     }
 
     /*Link the two shaders together to create a program*/
@@ -133,7 +133,7 @@ GLuint init_shader_program(const char* vertex_name, const char* frag_name)
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &gl_success);
     if (!gl_success) {
         printf("Error Linking the shaders!\n");
-        return GL_Shader_comp_fail;
+        return cec_shader_comp_fail;
     }
 
     /*Free the arrays used to store the shader source code*/
@@ -174,7 +174,7 @@ concorde_render_error_codes platform_render_begin(concorde_rendering_mode render
         /*Three floats per position vector per vertex*/
         gl_vertex_pos = malloc(3 * vertex_count * sizeof(float));
         if (!gl_vertex_pos) {
-            return crec_vertex_alloc_failed;
+            return cec_vertex_alloc_failed;
         }
     }
 
@@ -182,10 +182,10 @@ concorde_render_error_codes platform_render_begin(concorde_rendering_mode render
     if (vertex_mask & cvm_color) {
         gl_vertex_color = malloc(3 * vertex_count * sizeof(float));
         if (!gl_vertex_color) {
-            return crec_vertex_alloc_failed;
+            return cec_vertex_alloc_failed;
         }
     }
-    return crec_success;
+    return cec_success;
 }
 
 concorde_render_error_codes platform_render_end()
@@ -211,5 +211,5 @@ concorde_render_error_codes platform_render_end()
 
     /*Reset the internal vertex component mask*/
     gl_internal_vertex_mask = 0;
-    return crec_success;
+    return cec_success;
 }

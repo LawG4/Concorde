@@ -74,7 +74,7 @@ concorde_render_error_codes platform_immediate_render_pos(float x, float y, floa
     gl_vertex_pos[Concorde_immediate_index * 3 + 0] = x;
     gl_vertex_pos[Concorde_immediate_index * 3 + 1] = y;
     gl_vertex_pos[Concorde_immediate_index * 3 + 2] = z;
-    return crec_success;
+    return cec_success;
 }
 
 concorde_render_error_codes platform_immediate_render_col(float R, float G, float B, float A)
@@ -82,5 +82,5 @@ concorde_render_error_codes platform_immediate_render_col(float R, float G, floa
     gl_vertex_color[Concorde_immediate_index * 3 + 0] = R;
     gl_vertex_color[Concorde_immediate_index * 3 + 1] = G;
     gl_vertex_color[Concorde_immediate_index * 3 + 2] = B;
-    return crec_success;
+    return cec_success;
 }

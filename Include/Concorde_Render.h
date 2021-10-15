@@ -10,6 +10,8 @@
 #ifndef __CONCORDE_RENDER_H__
 #define __CONCORDE_RENDER_H__
 
+#include "Concorde.h"
+
 #include <stdint.h>
 
 /*Define the different styles of rendering concorde will let a user do*/
@@ -29,14 +31,7 @@ typedef enum { cp_triangle = 3, cp_quad = 4 } concorde_primative;
 /*Define flags that tell concorde which properties the users vertices have*/
 typedef enum { cvm_position = 1, cvm_color = 1 << 1, cvm_tex = 1 << 2 } concorde_vertex_mask;
 
-typedef enum {
-    crec_success = 0,
-    crec_already_rendering,
-    crec_not_finished_rendering,
-    crec_invalid_vertex_mask,
-    crec_vertex_alloc_failed
-
-} concorde_render_error_codes;
+typedef concorde_error_code concorde_render_error_codes;
 
 /**
  * Starts the concorde draw call

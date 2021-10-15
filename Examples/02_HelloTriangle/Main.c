@@ -38,7 +38,7 @@ int main()
 
         /*End the rendering call*/
         concorde_render_error_codes err;
-        if (err = concorde_render_end() != crec_success) {
+        if (err = concorde_render_end() != cec_success) {
             printf("Something went wrong rendering your triangle :%i\n", err);
             break;
         }

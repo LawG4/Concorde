@@ -5,10 +5,12 @@
 #ifndef CONCORDE_MAIN_HEADER
 #define CONCORDE_MAIN_HEADER
 
-#include <stdbool.h>
-#include <stdint.h>
+#include "Concorde_Enums.h"
 #include "Concorde_Input_System.h"
 #include "Concorde_Render.h"
+
+#include <stdbool.h>
+#include <stdint.h>
 
 /**
  * Return states from Concorde functions

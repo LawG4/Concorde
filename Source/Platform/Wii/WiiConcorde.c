@@ -112,7 +112,7 @@ uint8_t initGX(const concorde_init_info *p_init_info)
     GX_SetCullMode(GX_FALSE);
 
     /*Start the renderer*/
-    if (init_gx_renderer() != crec_success) {
+    if (init_gx_renderer() != cec_success) {
         printf("Failed to init the concorde gx renderer!\n");
         return CONCORDE_VIDEO_INIT_FAILURE;
     }

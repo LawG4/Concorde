@@ -57,7 +57,7 @@ concorde_render_error_codes init_gx_renderer(void)
 
     GX_LoadPosMtxImm(viewMat, GX_PNMTX0);
 
-    return crec_success;
+    return cec_success;
 }
 
 concorde_render_error_codes platform_render_begin(concorde_rendering_mode rendering_mode,
@@ -73,12 +73,12 @@ concorde_render_error_codes platform_render_begin(concorde_rendering_mode render
     If we don't submit enough then GX will hang*/
     GX_Begin(GX_TRIANGLES, GX_VTXFMT0, vertex_count);
 
-    return crec_success;
+    return cec_success;
 }
 
 concorde_render_error_codes platform_render_end()
 {
     /*End the GX render cycle, remember if we haven't submitted enough vertices GX will hang*/
     GX_End();
-    return crec_success;
+    return cec_success;
 }
